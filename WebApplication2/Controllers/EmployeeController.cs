@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using WebApplication2.Data;
+using EmployeeApp.Data;
 
-namespace WebApplication2.Controllers
+namespace EmployeeApp.Controllers
 {
     [ApiController]
     [Route("employee")]
