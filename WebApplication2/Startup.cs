@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebApplication2.Data;
+using EmployeeApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 
-namespace WebApplication2
+namespace EmployeeApp
 {
     public class Startup
     {
@@ -28,13 +28,6 @@ namespace WebApplication2
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddControllersWithViews();
-            //services.AddCors(options => options.AddPolicy("Cors", builder =>
-            //{
-            //    builder
-            //    .AllowAnyOrigin()
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader();
-            //}));
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -71,8 +64,6 @@ namespace WebApplication2
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
-            //app.UseCors("Cors");
 
             app.UseSpa(spa =>
             {

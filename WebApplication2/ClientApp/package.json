@@ -1,11 +1,11 @@
 {
-  "name": "webapplication2",
+  "name": "employeeapp",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run WebApplication2:server:dev",
+    "build:ssr": "ng run EmployeeApp:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
