@@ -1,0 +1,17 @@
+<form #addEmployeeForm="ngForm">
+    <div class="row">
+        <div class="col-md-5">
+            <label for="name">Name</label>
+            <input type="text"
+            maxlength="255"
+            class="form-control"
+            />
+            <input type="text"
+            maxlength="255"
+            class="form-control"
+            [(ngModel)]="currUser.FirstName"
+            name="firstName"
+            required />
+        </div>
+    </div>
+</form>
