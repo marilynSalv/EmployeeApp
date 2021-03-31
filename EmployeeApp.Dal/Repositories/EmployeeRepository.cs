@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using EmployeeApp.Dal.Contexts;
+using EmployeeApp.Dal.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace EmployeeApp.Data
+namespace EmployeeApp.Dal.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {

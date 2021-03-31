@@ -1,9 +1,7 @@
-﻿using System;
+﻿using EmployeeApp.Dal.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace EmployeeApp.Data
+namespace EmployeeApp.Dal.Repositories
 {
     public interface IEmployeeRepository
     {

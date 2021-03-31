@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeApp
+namespace EmployeeApp.Api
 {
     public class Program
     {

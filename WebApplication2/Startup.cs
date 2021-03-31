@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using EmployeeApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using EmployeeApp.Dal.Contexts;
+using EmployeeApp.Dal.Repositories;
 
-
-namespace EmployeeApp
+namespace EmployeeApp.Api
 {
     public class Startup
     {

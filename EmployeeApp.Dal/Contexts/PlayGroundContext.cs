@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EmployeeApp.Dal.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeApp.Data
+namespace EmployeeApp.Dal.Contexts
 {
     public class PlayGroundContext: DbContext
     {

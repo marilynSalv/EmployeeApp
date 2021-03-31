@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using EmployeeApp.Data;
+using EmployeeApp.Dal.Entities;
+using EmployeeApp.Dal.Repositories;
 
-namespace EmployeeApp.Controllers
+namespace EmployeeApp.Api.Controllers
 {
     [ApiController]
     [Route("employee")]
