@@ -1,5 +1,7 @@
 ﻿using EmployeeApp.Api.Services;
+using EmployeeApp.Dal.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -52,20 +54,23 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpGet("All")]
-        public ActionResult<string> GetAll()
+        public ActionResult<List<RequestDto>> GetAll()
         {
-            var scopedResult = _scopedService.GetOperationId();
-            var scopedResult2 = _scopedService2.GetOperationId();
+            var request1 = new RequestDto
+            {
+                Scoped = _scopedService.GetOperationId(),
+                Singleton = _singletonService.GetOperationId(),
+                Transient = _transientService.GetOperationId(),
+            };
 
+            var request2 = new RequestDto
+            {
+                Scoped = _scopedService2.GetOperationId(),
+                Singleton = _singletonService2.GetOperationId(),
+                Transient = _transientService2.GetOperationId(),
+            };
 
-            var singletonResult = _singletonService.GetOperationId();
-            var singletonResult2 = _singletonService2.GetOperationId();
-
-
-            var transientResult = _transientService.GetOperationId();
-            var transientResult2 = _transientService2.GetOperationId();
-
-            return "test";
+            return new List<RequestDto> { request1, request2 };
         }
     }
 }

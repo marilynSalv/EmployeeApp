@@ -13,6 +13,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeComponent } from './employees/employee/employee.component';
 import { TemplateDrivenAddEmployeeComponent } from './employees/template-driven-add-employee/template-driven-add-employee.component';
 import { ReactiveFormAddEmployeeComponent } from './employees/reactive-form-add-employee/reactive-form-add-employee.component';
+import { RequestComponent } from './request/request.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ReactiveFormAddEmployeeComponent } from './employees/reactive-form-add-
     EmployeesComponent,
     TemplateDrivenAddEmployeeComponent,
     ReactiveFormAddEmployeeComponent,
+    RequestComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +37,7 @@ import { ReactiveFormAddEmployeeComponent } from './employees/reactive-form-add-
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'employees', component: EmployeesComponent },
+      { path: 'request', component: RequestComponent },
     ])
   ],
   providers: [],

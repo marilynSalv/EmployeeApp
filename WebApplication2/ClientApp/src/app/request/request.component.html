@@ -1,0 +1,45 @@
+<table>
+    <thead>
+      <tr>
+        <th>Singleton</th>
+        <th>Scoped</th>
+        <th>Transient</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of requests1">
+        <td>
+            {{request.singleton}}
+        </td>
+        <td>
+          {{request.scoped}}
+        </td>
+        <td>
+            {{request.transient}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Singleton</th>
+        <th>Scoped</th>
+        <th>Transient</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of requests2">
+        <td>
+            {{request.singleton}}
+        </td>
+        <td>
+          {{request.scoped}}
+        </td>
+        <td>
+            {{request.transient}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
