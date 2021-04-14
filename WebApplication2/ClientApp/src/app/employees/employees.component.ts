@@ -19,7 +19,9 @@ export class EmployeesComponent implements OnInit {
     lastName:'Roberts2', 
     email: 'tes2t@gmail.com',
   }];
-  constructor(private employeesService: EmployeesService) { }
+  constructor(private employeesService: EmployeesService,
+    // private bsModalService?: BsModalService,
+    ) { }
 
   ngOnInit() {
     this.employeesService.getEmployees().subscribe(
@@ -39,6 +41,10 @@ export class EmployeesComponent implements OnInit {
         console.log("updated employee");
       }
     );
+  }
+
+  addEmployee(): void{
+
   }
 
 }

@@ -17,7 +17,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpGet]
-        public List<Employee> Get()
+        public ActionResult<List<Employee>> Get()
         {
             var result = _employeeRepository.Get();
             return result;
