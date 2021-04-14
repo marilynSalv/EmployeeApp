@@ -1,3 +1,4 @@
+using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,13 @@ namespace EmployeeApp.Api
             services.AddControllers();
             //services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
+
+            services.AddSingleton<ISingleton, ScopeService>();
+            services.AddTransient<ITransient, ScopeService>();
+            services.AddScoped<IScoped, ScopeService>();
+
+
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
