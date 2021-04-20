@@ -33,12 +33,12 @@ import { RequestComponent } from './request/request.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'employees', component: EmployeesComponent },
-      { path: 'request', component: RequestComponent },
-    ])
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'counter', component: CounterComponent },
+    { path: 'fetch-data', component: FetchDataComponent },
+    { path: 'employees', component: EmployeesComponent },
+    { path: 'request', component: RequestComponent },
+], { relativeLinkResolution: 'legacy' })
   ],
   providers: [],
   bootstrap: [AppComponent]
