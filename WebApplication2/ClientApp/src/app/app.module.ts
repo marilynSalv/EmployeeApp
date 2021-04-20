@@ -14,6 +14,7 @@ import { EmployeeComponent } from './employees/employee/employee.component';
 import { TemplateDrivenAddEmployeeComponent } from './employees/template-driven-add-employee/template-driven-add-employee.component';
 import { ReactiveFormAddEmployeeComponent } from './employees/reactive-form-add-employee/reactive-form-add-employee.component';
 import { RequestComponent } from './request/request.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RequestComponent } from './request/request.component';
     { path: 'fetch-data', component: FetchDataComponent },
     { path: 'employees', component: EmployeesComponent },
     { path: 'request', component: RequestComponent },
-], { relativeLinkResolution: 'legacy' })
+], { relativeLinkResolution: 'legacy' }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
