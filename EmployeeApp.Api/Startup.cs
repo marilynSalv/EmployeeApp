@@ -41,17 +41,17 @@ namespace EmployeeApp.Api
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            //services.AddCors(options => options.AddDefaultPolicy( //can use app.UseCors();
-            //        builder => builder.AllowAnyOrigin()));
+            services.AddCors(options => options.AddDefaultPolicy( //can use app.UseCors();
+                    builder => builder.AllowAnyOrigin()));
             //services.AddCors(options => options.AddDefaultPolicy( //can use app.UseCors();
             //    builder => builder.WithOrigins("http://localhost:4200")));
 
-            services.AddCors(options =>
-            { 
-                options.AddDefaultPolicy( //while this would be used everywhere else
-                     builder => builder.WithOrigins("http://localhost:4200"));
-                options.AddPolicy("myPolicy", builder => builder.WithOrigins("http://localhost:4200")); //can target something like just controllers
-             });
+            //services.AddCors(options =>
+            //{ 
+            //    options.AddDefaultPolicy( //while this would be used everywhere else
+            //         builder => builder.WithOrigins("http://localhost:4200"));
+            //    options.AddPolicy("myPolicy", builder => builder.WithOrigins("http://localhost:4200")); //can target something like just controllers
+            // });
         }
 
         //for middleware
@@ -84,7 +84,7 @@ namespace EmployeeApp.Api
             app.UseCors();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireCors("myPolicy");
+                endpoints.MapControllers();//.RequireCors("myPolicy");
                 //endpoints.MapControllerRoute(
                 //    name: "default",
                 //    pattern: "{controller}/{action=Index}/{id?}");
