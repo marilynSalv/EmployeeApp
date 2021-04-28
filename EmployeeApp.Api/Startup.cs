@@ -51,7 +51,7 @@ namespace EmployeeApp.Api
                 options.AddDefaultPolicy( //while this would be used everywhere else
                      builder => builder.WithOrigins("http://localhost:4200"));
                 options.AddPolicy("myPolicy", builder => builder.WithOrigins("http://localhost:4200")); //can target something like just controllers
-                });
+             });
         }
 
         //for middleware
