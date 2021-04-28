@@ -20,6 +20,7 @@ namespace EmployeeApp.Api
 
         public IConfiguration Configuration { get; }
 
+        //for services
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,10 +39,22 @@ namespace EmployeeApp.Api
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "../EmployeeApp.Web/dist";
+                configuration.RootPath = "ClientApp/dist";
             });
+            //services.AddCors(options => options.AddDefaultPolicy( //can use app.UseCors();
+            //        builder => builder.AllowAnyOrigin()));
+            //services.AddCors(options => options.AddDefaultPolicy( //can use app.UseCors();
+            //    builder => builder.WithOrigins("http://localhost:4200")));
+
+            services.AddCors(options =>
+            { 
+                options.AddDefaultPolicy( //while this would be used everywhere else
+                     builder => builder.WithOrigins("http://localhost:4200"));
+                options.AddPolicy("myPolicy", builder => builder.WithOrigins("http://localhost:4200")); //can target something like just controllers
+                });
         }
 
+        //for middleware
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -65,9 +78,13 @@ namespace EmployeeApp.Api
 
             app.UseRouting();
 
+            //add cors middleware has to be after userouting and before useAuthorization
+            // app.UseCors(); //since were using AddDefaultPolicy can leave it like this will see in response headers when call endpoint (access-control-allow-origin: *)--meaning any website will be able to access this endpoint, but can usually pass policy name
+            // app.UseCors("myPolicy"); // with both a default policy and another policy, this will remove default policy though
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors("myPolicy");
                 //endpoints.MapControllerRoute(
                 //    name: "default",
                 //    pattern: "{controller}/{action=Index}/{id?}");
@@ -78,7 +95,7 @@ namespace EmployeeApp.Api
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "../EmployeeApp.Web";
+                spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {
