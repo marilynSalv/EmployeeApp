@@ -1,0 +1,24 @@
+<div [ngBusy]="{busy: getSubscription, message: 'loading...'}"></div>
+
+<div class="row">
+    <div class="col-md-3 offset-md-9">
+        <button
+        (click)="addEmployee()"
+        class="btn btn-primary">Add New Employee</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 offset-md-9">
+        <button
+        (click)="changeFirstEmployeeName()"
+        class="btn btn-primary">Change First Employee Name</button>
+    </div>
+</div>
+<h2>Employees: </h2>
+<div>
+    <div *ngFor="let employee of employees">
+        <app-employee
+        (employeeUpdated)="update($event)"
+        [employee]="employee"></app-employee>
+    </div>
+</div>
