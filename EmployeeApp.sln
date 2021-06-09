@@ -26,8 +26,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "EmployeeApp.Web", "Employee
 		SlnRelativePath = "EmployeeApp.Web\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Api", "Employee.Api\Employee.Api.csproj", "{90C539CF-942E-4D23-9A1A-037DF78AC921}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +40,6 @@ Global
 		{160D1FDA-2E98-498F-B079-0BF3DCA9BABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{160D1FDA-2E98-498F-B079-0BF3DCA9BABD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{160D1FDA-2E98-498F-B079-0BF3DCA9BABD}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{90C539CF-942E-4D23-9A1A-037DF78AC921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90C539CF-942E-4D23-9A1A-037DF78AC921}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90C539CF-942E-4D23-9A1A-037DF78AC921}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90C539CF-942E-4D23-9A1A-037DF78AC921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
