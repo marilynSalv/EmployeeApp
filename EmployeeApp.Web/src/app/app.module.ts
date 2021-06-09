@@ -11,6 +11,8 @@ import { EmployeesComponent } from './employees/employees.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,11 @@ import { RouterModule } from '@angular/router';
     NavMenuComponent,
     EmployeeComponent,
     EmployeesComponent,
+    CustomBusyComponent,
   ],
   imports: [
     BrowserAnimationsModule,
+    NgBusyModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -28,11 +32,10 @@ import { RouterModule } from '@angular/router';
       { path: '', component: EmployeesComponent, pathMatch: 'full' },
     ]),
     NgBusyModule.forRoot(new BusyConfig({
-      backdrop: false,
-      delay: 200,
+      backdrop: true,
+      template: CustomBusyComponent,
       minDuration: 600,
-      templateNgStyle: { "background-color": "black" }
-  }))  ],
+  })) ],
   providers: [],
   bootstrap: [AppComponent]
 })

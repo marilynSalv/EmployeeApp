@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IBusyConfig } from 'ng-busy';
 import { Subscription } from 'rxjs';
 import { Employee } from './employee.model';
 import { EmployeesService } from './employees.service';
@@ -9,6 +10,7 @@ import { EmployeesService } from './employees.service';
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
+  busyConfig: IBusyConfig = {};
   employees: Employee[] = [];
   getSubscription?: Subscription;
   constructor(private employeesService: EmployeesService,
@@ -16,9 +18,8 @@ export class EmployeesComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.employeesService.getEmployees().subscribe(
+    this.getSubscription = this.employeesService.getEmployees().subscribe(
       (data): void => {
-        setTimeout(()=>{ }, 10000000)
         this.employees = data;
       }
     );
@@ -38,6 +39,16 @@ export class EmployeesComponent implements OnInit {
 
   addEmployee(): void{
 
+  }
+
+  onClick() {
+
+    const busy = new Promise<any>((resolve) => {
+      setTimeout((): void => {
+        Promise.resolve();
+      }, 5000);
+    });
+    this.busyConfig.busy = [busy];
   }
 
 }
