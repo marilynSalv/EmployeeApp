@@ -16,10 +16,10 @@ export class EmployeesService {
   }
 
   getEmployees(): Observable<any> {
-    return this.http.get('https://localhost:44399/employee');
+    return this.http.get('https://localhost:44343/employee');
   }
 
   updateEmployee(dto: Employee): Observable<any> {
-    return this.http.put('https://localhost:44399/employee', JSON.stringify(dto), this.headers);
+    return this.http.put('https://localhost:44343/employee', JSON.stringify(dto), this.headers);
   }
 }
