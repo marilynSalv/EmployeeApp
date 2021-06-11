@@ -3,3 +3,8 @@ export interface Employee {
     lastName: string;
     email: string;
 }
+
+export interface HierarchyType {
+    description?: string;
+    hierarchyTypeKey?: string;
+  }
