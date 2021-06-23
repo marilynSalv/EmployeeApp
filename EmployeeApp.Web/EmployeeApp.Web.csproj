@@ -8,7 +8,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
-    <ItemGroup>
+   <ItemGroup>
     <Compile Remove="dist\**" />
     <Compile Remove="node_modules\**" />
     <Content Remove="dist\**" />
