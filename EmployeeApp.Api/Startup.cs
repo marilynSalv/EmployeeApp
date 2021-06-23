@@ -1,3 +1,4 @@
+using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,11 @@ namespace EmployeeApp.Api
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddControllers();
+
+
+            services.AddSingleton<ISingleton, ScopeService>();
+            services.AddTransient<ITransient, ScopeService>();
+            services.AddScoped<IScoped, ScopeService>();
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.WithOrigins("http://localhost:4200")));
