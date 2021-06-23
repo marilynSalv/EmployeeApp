@@ -2,6 +2,11 @@ import { Employee } from './employee.model';
 
 describe('Employee', () => {
   it('should create an instance', () => {
-    expect(new Employee()).toBeTruthy();
+    const emp: Employee = {
+      firstName: "Test",
+      lastName: "test",
+      email: "test",
+    };
+    expect(emp).toBeTruthy();
   });
 });
