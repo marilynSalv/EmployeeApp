@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomBusyComponent } from './custom-busy/custom-busy.component';
+import { ScopeComponent } from './scope/scope.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CustomBusyComponent } from './custom-busy/custom-busy.component';
     EmployeeComponent,
     EmployeesComponent,
     CustomBusyComponent,
+    ScopeComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,6 +32,7 @@ import { CustomBusyComponent } from './custom-busy/custom-busy.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: EmployeesComponent, pathMatch: 'full' },
+      { path: 'scope', component: ScopeComponent, pathMatch: 'full' },
     ]),
     NgBusyModule.forRoot(new BusyConfig({
       backdrop: true,

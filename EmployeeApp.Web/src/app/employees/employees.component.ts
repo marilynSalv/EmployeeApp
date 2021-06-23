@@ -18,11 +18,11 @@ export class EmployeesComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    // this.getSubscription = this.employeesService.getEmployees().subscribe(
-    //   (data): void => {
-    //     this.employees = data;
-    //   }
-    // );
+    this.getSubscription = this.employeesService.getEmployees().subscribe(
+      (data): void => {
+        this.employees = data;
+      }
+    );
   }
 
   changeFirstEmployeeName():void {

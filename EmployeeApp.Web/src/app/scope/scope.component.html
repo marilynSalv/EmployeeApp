@@ -1,0 +1,18 @@
+
+<div style = "display: flex; justify-content:flex-end">
+    <button
+    (click)="getRequests()"
+    class="btn btn-primary">Call Again</button>
+</div>
+<table class="table">
+    <tr>
+        <th>Transient</th>
+        <th>Scoped</th>
+        <th>Singleton</th>
+    </tr>
+    <tr *ngFor="let request of requests">
+        <th>{{request.transient}}</th>
+        <th>{{request.scoped}}</th>
+        <th>{{request.singleton}}</th>
+    </tr>
+</table>
