@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace EmployeeApp.Api.Controllers
 {
     [ApiController]
-    [Route("scope1")]
+    [Route("scope")]
     public class ScopeController : ControllerBase
     {
         private readonly IScoped _scopedService;
@@ -15,7 +15,9 @@ namespace EmployeeApp.Api.Controllers
         private readonly ITransient _transientService2;
         private readonly ISingleton _singletonService;
         private readonly ISingleton _singletonService2;
-        public ScopeController(ITransient transientService,
+
+        public ScopeController(
+            ITransient transientService,
             ITransient transientService2,
             ISingleton singletonService,
             ISingleton singletonService2,
@@ -35,7 +37,6 @@ namespace EmployeeApp.Api.Controllers
         public ActionResult<string> GetTransient()
         {
             var result = _transientService.GetOperationId();
-
             return result;
         }
 

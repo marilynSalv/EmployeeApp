@@ -14,7 +14,7 @@ namespace EmployeeApp.Dal.Repositories
         }
         public List<Employee> Get()
         {
-            var result = _context.Employees.Take(100).ToList();
+            var result = _context.Employees.Take(10).ToList();
             return result;
         }
 
