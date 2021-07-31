@@ -33,45 +33,24 @@ namespace EmployeeApp.Api.Controllers
             _singletonService2 = singletonService2;
         }
 
-        [HttpGet("transient")]
-        public ActionResult<string> GetTransient()
-        {
-            var result = _transientService.GetOperationId();
-            return result;
-        }
-
-        [HttpGet("singleton")]
-        public ActionResult<string> GetSingleton()
-        {
-            var result = _singletonService.GetOperationId();
-            return result;
-        }
-
-        [HttpGet("scoped")]
-        public ActionResult<string> GetScoped()
-        {
-            var result = _scopedService.GetOperationId();
-            return result;
-        }
-
         [HttpGet("All")]
         public ActionResult<List<RequestDto>> GetAll()
         {
-            var request1 = new RequestDto
+            var call1 = new RequestDto
             {
                 Scoped = _scopedService.GetOperationId(),
                 Singleton = _singletonService.GetOperationId(),
                 Transient = _transientService.GetOperationId(),
             };
-
-            var request2 = new RequestDto
+                                                                                                                                 
+            var call2 = new RequestDto
             {
                 Scoped = _scopedService2.GetOperationId(),
                 Singleton = _singletonService2.GetOperationId(),
                 Transient = _transientService2.GetOperationId(),
             };
 
-            return new List<RequestDto> { request1, request2 };
+            return new List<RequestDto> { call1, call2 };
         }
     }
 }
