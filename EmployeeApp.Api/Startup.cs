@@ -24,6 +24,8 @@ namespace EmployeeApp.Api
         {
             services.AddDbContextPool<PlayGroundContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
+            //services.AddDbContext<PlayGroundContext>(
+            //    options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddControllers();
 
