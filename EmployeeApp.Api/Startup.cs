@@ -1,12 +1,16 @@
 using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EmployeeApp.Api
 {
@@ -26,6 +30,29 @@ namespace EmployeeApp.Api
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
             //services.AddDbContext<PlayGroundContext>(
             //    options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 5;
+
+            }).AddEntityFrameworkStores<PlayGroundContext>();
+
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options => {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    RequireExpirationTime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Test"))
+                };
+            });
+
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddControllers();
 
