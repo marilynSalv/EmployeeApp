@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using EmployeeApp.Dal.Entities;
 using EmployeeApp.Dal.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeApp.Api.Controllers
 {
     [ApiController]
+    //[Authorize]
     [Route("employee")]
     public class EmployeeController : ControllerBase
     {
@@ -24,7 +26,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPut]
-        public int Update(Employee dto)
+        public int Update([FromBody]Employee dto)
         {
             var result = _employeeRepository.Update(dto.Id, dto.FirstName);
             return result;

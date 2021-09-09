@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <form [formGroup]="registerForm">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="text"
+                formControlName="email"
+                class="form-control"
+                required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="username" class="form-label">Username</label>
+                <input type="text"
+                formControlName="username"
+                class="form-control"
+                required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="text"
+                formControlName="password"
+                class="form-control"
+                required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button
+                type="submit"
+                [disabled]="!registerForm.valid"
+                (click)="register()"
+                class="btn btn-primary">Sign up</button>
+            </div>
+        </div>
+    </form>
+</div>

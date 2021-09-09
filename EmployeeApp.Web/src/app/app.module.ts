@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employees/employee/employee.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 import { ScopeComponent } from './scope/scope.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ScopeComponent } from './scope/scope.component';
     EmployeesComponent,
     CustomBusyComponent,
     ScopeComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,9 +34,12 @@ import { ScopeComponent } from './scope/scope.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: EmployeesComponent, pathMatch: 'full' },
       { path: 'scope', component: ScopeComponent, pathMatch: 'full' },
+      { path: 'login', component: LoginComponent, pathMatch: 'full' },
+      { path: 'register', component: RegisterComponent, pathMatch: 'full' },
     ]),
     NgBusyModule.forRoot(new BusyConfig({
       backdrop: true,
