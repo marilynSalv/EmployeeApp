@@ -1,35 +1,4 @@
 <div class="container-fluid">
-    <!-- <form #loginForm="ngForm">
-        <div class="row">
-            <div class="col-md-5">
-                <label for="username" class="form-label">Username</label>
-                <input type="text"
-                formControlName="username"
-                class="form-control"
-                required />
-            </div>
-            
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <label for="password">password</label>
-                <input type="text"
-                maxlength="255"
-                class="form-control"
-                name="password"
-                required />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 offset-md-9">
-                <button
-                type="submit"
-                [disabled]="!loginForm.valid"
-                (click)="login()"
-                class="btn btn-primary">Login</button>
-            </div>
-        </div>
-    </form> -->
     <form [formGroup]="loginForm">
         <div class="row mb-3">
             <div class="col-md-6">
