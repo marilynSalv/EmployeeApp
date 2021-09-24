@@ -1,5 +1,5 @@
 export interface UserAuthDto {
-    email: string;
+    username: string;
     password: string;
 }
 

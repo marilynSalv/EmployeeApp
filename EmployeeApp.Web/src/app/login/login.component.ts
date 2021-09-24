@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const loginDto: UserAuthDto = {
-      email: this.loginForm.controls['email'].value,
+      username: this.loginForm.controls['username'].value,
       password: this.loginForm.controls['password'].value,
     }
 

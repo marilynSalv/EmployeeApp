@@ -1,5 +1,7 @@
 using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
+using EmployeeApp.Dal.Dtos;
+using EmployeeApp.Dal.Entities;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -27,10 +29,13 @@ namespace EmployeeApp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services app settings
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+
             services.AddDbContextPool<PlayGroundContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
@@ -45,6 +50,7 @@ namespace EmployeeApp.Api
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -55,8 +61,8 @@ namespace EmployeeApp.Api
                     ValidateIssuerSigningKey = true,
                     RequireExpirationTime = true,
                     ValidIssuer = "http://localhost:44343",
-                    ValidAudience = "http://localhost:44343",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                    ValidAudience = "http://localhost:4200",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JwtSecret"].ToString()))
                 };
             });
 
@@ -69,7 +75,7 @@ namespace EmployeeApp.Api
             services.AddScoped<IScoped, ScopeService>();
 
             services.AddCors(options => options.AddDefaultPolicy(
-                builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()));
+                builder => builder.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString()).AllowAnyMethod().AllowAnyHeader()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
