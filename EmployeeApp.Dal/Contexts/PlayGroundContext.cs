@@ -1,10 +1,11 @@
 ﻿using EmployeeApp.Dal.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeApp.Dal.Contexts
 {
-    public class PlayGroundContext: IdentityDbContext
+    public class PlayGroundContext: IdentityDbContext<ApplicationUser>
     {
 
         public PlayGroundContext(DbContextOptions<PlayGroundContext> options)

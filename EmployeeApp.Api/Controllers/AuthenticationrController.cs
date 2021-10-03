@@ -38,6 +38,9 @@ namespace EmployeeApp.Api.Controllers
             {
                 Email = registerDto.Email,
                 UserName = registerDto.UserName,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                ZipCode = registerDto.ZipCode,
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if (result.Succeeded) 
@@ -67,17 +70,21 @@ namespace EmployeeApp.Api.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return Ok(new { token });
-                //var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-                //identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                //identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-                //await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
-                //return true;
-            }
+                var result = new AuthResponseDto
+                {
+                    Token = token,
+                    IsAuthSuccessful = true,
+                };
+                return Ok(result);            }
             else
             {
-                var message = "username or password is incorrect";
-                return BadRequest(new { message });
+                var message = "Username or password is incorrect";
+                var result = new AuthResponseDto
+                {
+                    ErrorMessage = message,
+                    IsAuthSuccessful = false,
+                };
+                return BadRequest(result);
             }
         }
 

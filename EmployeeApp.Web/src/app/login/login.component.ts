@@ -11,12 +11,17 @@ import { AuthResponseDto, UserAuthDto } from './user-auth-dto.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.createForm();
-
+  showLoginError = false;
+  errorMessage = '';
 
   constructor(private loginService: LoginService,
     private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  closeAlert(): void {
+    this.showLoginError = false;
   }
 
   login(): void {
@@ -29,16 +34,22 @@ export class LoginComponent implements OnInit {
       .subscribe(
       (response: AuthResponseDto) => {
         if(response.isAuthSuccessful) {
-          localStorage.setItem("jwt", response.token);
-          this.router.navigate(['employees']);
+          localStorage.setItem("token", response.token);
+          this.router.navigateByUrl('/');
         }
+      },
+      (error) => {
+        localStorage.clear();
+        this.showLoginError = true;
+        this.errorMessage = error?.error?.errorMessage;
+        this.loginForm.controls['password'].reset('');
       }
     );
   }
   private createForm(): FormGroup {
     return new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.maxLength(250)]),
-      'password': new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      'username': new FormControl(null, [Validators.required]),
+      'password': new FormControl(null, [Validators.required]),
     });
   }
 

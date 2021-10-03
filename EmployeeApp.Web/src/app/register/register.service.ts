@@ -15,7 +15,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { 
   }
 
-  register(dto: UserAuthDto): Observable<any> {
+  register(dto: UserAuthDto): Observable<IdentityResult> {
     return this.http.post<any>('https://localhost:44343/auth/register', JSON.stringify(dto), this.headers);
   }
 }

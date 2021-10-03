@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BusyConfig, NgBusyModule } from 'ng-busy';
@@ -16,6 +16,9 @@ import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 import { ScopeComponent } from './scope/scope.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { EmployeesService } from './employees/employees.service';
+import { AuthInterceptor } from './auth/auth.integration';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -45,8 +48,16 @@ import { RegisterComponent } from './register/register.component';
       backdrop: true,
       template: CustomBusyComponent,
       minDuration: 600,
-  })) ],
-  providers: [],
+    })),
+    ToastrModule.forRoot({
+      positionClass :'toast-bottom-right',
+    }) 
+  ],
+  providers: [EmployeesService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using EmployeeApp.Dal.Entities;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -12,21 +15,26 @@ namespace EmployeeApp.Api.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository,
+            UserManager<ApplicationUser> userManager)
         {
             _employeeRepository = employeeRepository;
+            _userManager = userManager;
         }
 
         [HttpGet]
-        public ActionResult<List<Employee>> Get()
+        public async Task<ActionResult<List<Employee>>> Get()
         {
-            var result = _employeeRepository.Get();
+            //var userId = User.Claims.First(x => x.Type == "UserID").Value;
+            //var user = await _userManager.FindByIdAsync(userId);
+            var result = await _employeeRepository.Get();
             return result;
         }
 
         [HttpPut]
-        public int Update([FromBody]Employee dto)
+        public int Update([FromBody] Employee dto)
         {
             var result = _employeeRepository.Update(dto.Id, dto.FirstName);
             return result;

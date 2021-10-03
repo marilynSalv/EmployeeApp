@@ -12,5 +12,16 @@ namespace EmployeeApp.Dal.Dtos
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        [MaxLength(5)]
+        public string ZipCode { get; set; }
     }
 }
