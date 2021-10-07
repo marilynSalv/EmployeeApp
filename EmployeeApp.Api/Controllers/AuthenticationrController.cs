@@ -54,7 +54,9 @@ namespace EmployeeApp.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, loginDto.Password))
+
+            //var signInResult = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);// for cookie auth and conrim emails and lockouts users after failed
+            if (user != null && (await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false)).Succeeded)
             {
                 var claims = new Claim[] 
                 {
@@ -63,7 +65,7 @@ namespace EmployeeApp.Api.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddMinutes(10),
+                    Expires = DateTime.UtcNow.AddMinutes(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_applicationSettings.JwtSecret)), SecurityAlgorithms.HmacSha256Signature),
                 };
 
@@ -75,7 +77,9 @@ namespace EmployeeApp.Api.Controllers
                     Token = token,
                     IsAuthSuccessful = true,
                 };
-                return Ok(result);            }
+
+                return Ok(result);
+            }
             else
             {
                 var message = "Username or password is incorrect";
