@@ -43,10 +43,6 @@ namespace EmployeeApp.Api.Controllers
                 ZipCode = registerDto.ZipCode,
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (result.Succeeded) 
-            {
-                // await _signInManager.SignInAsync(user, false); //2nd param if want to create session cookie(false) lost after close wndow, or permanant cookie
-            }
             return result;
         }
 
