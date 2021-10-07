@@ -55,7 +55,6 @@ namespace EmployeeApp.Api.Controllers
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
 
-            //var signInResult = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);// for cookie auth and conrim emails and lockouts users after failed
             if (user != null && (await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false)).Succeeded)
             {
                 var claims = new Claim[] 
