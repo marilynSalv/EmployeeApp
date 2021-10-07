@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <form [formGroup]="loginForm">
+        <div *ngIf="showLoginError" class="alert alert-danger" role="alert">
+            <button type="button" class="close" (click)="closeAlert()" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{errorMessage}}
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text"
+                formControlName="username"
+                class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password"
+                maxlength="255"
+                formControlName="password"
+                class="form-control" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button
+                type="submit"
+                [disabled]="!loginForm.valid"
+                (click)="login()"
+                class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </form>
+</div>

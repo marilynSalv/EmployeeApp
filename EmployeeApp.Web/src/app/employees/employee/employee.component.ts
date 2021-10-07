@@ -20,7 +20,9 @@ export class EmployeeComponent implements OnInit {
   }
 
   changeName(): void{
-    // this.employee?.firstName = "Test";
-    this.employeeUpdated.emit(this.employee);
+    if(this.employee !== undefined){
+      this.employee.firstName = "Test";
+      this.employeeUpdated.emit(this.employee);  
+    }
   }
 }

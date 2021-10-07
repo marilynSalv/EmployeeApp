@@ -1,6 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BusyConfig, NgBusyModule } from 'ng-busy';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -9,11 +8,14 @@ import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employees/employee/employee.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 import { ScopeComponent } from './scope/scope.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { EmployeesService } from './employees/employees.service';
+import { AuthInterceptor } from './auth/auth.integration';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ScopeComponent } from './scope/scope.component';
     EmployeesComponent,
     CustomBusyComponent,
     ScopeComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,16 +34,21 @@ import { ScopeComponent } from './scope/scope.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: EmployeesComponent, pathMatch: 'full' },
-      { path: 'scope', component: ScopeComponent, pathMatch: 'full' },
-    ]),
+    ReactiveFormsModule,
     NgBusyModule.forRoot(new BusyConfig({
       backdrop: true,
       template: CustomBusyComponent,
       minDuration: 600,
-  })) ],
-  providers: [],
+    })),
+    ToastrModule.forRoot({
+      positionClass :'toast-bottom-right',
+    }) 
+  ],
+  providers: [EmployeesService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

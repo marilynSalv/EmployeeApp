@@ -1,7 +1,9 @@
 ﻿using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EmployeeApp.Dal.Repositories
 {
@@ -12,9 +14,9 @@ namespace EmployeeApp.Dal.Repositories
         {
             _context = context;
         }
-        public List<Employee> Get()
+        public async Task<List<Employee>> Get()
         {
-            var result = _context.Employees.Take(10).ToList();
+            var result = await _context.Employees.Take(10).ToListAsync();
             return result;
         }
 

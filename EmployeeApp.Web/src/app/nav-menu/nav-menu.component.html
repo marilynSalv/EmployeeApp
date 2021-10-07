@@ -1,7 +1,8 @@
 <header>
+
+
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">EmployeeApp</a>
       <button
@@ -11,31 +12,44 @@
         data-target=".navbar-collapse"
         aria-label="Toggle navigation"
         [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+        (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
         class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
+        [ngClass]="{ show: isExpanded }">
+        <div *ngIf="showLogout">
+          <button class="btn btn-outline-secondary ml-2 my-2 my-sm-0"
+          (click)="onLogout()">Log out</button>
+        </div>
         <ul class="navbar-nav flex-grow">
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/employees']">Employees</a>
           </li>
           <li
-          class="nav-item"
-          [routerLinkActive]="['link-active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link text-dark" [routerLink]="['/scope']">Scope</a>
-        </li>
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
+          </li>
+          <li *ngIf="!showLogout"
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/scope']">Scope</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
