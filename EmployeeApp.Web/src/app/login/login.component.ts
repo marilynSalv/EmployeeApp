@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('token') !== null){
+      this.router.navigateByUrl('/employees');
+    }
   }
 
   closeAlert(): void {
@@ -35,7 +38,7 @@ export class LoginComponent implements OnInit {
       (response: AuthResponseDto) => {
         if(response.isAuthSuccessful) {
           localStorage.setItem("token", response.token);
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/employees');
         }
       },
       (error) => {

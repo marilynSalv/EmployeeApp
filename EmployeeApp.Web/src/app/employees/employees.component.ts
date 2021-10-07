@@ -25,10 +25,6 @@ export class EmployeesComponent implements OnInit {
     );
   }
 
-  changeFirstEmployeeName():void {
-    this.employees[0].firstName = "Jessy";
-  }
-
   update(updatedEmployee : Employee):void {
     this.employeesService.updateEmployee(updatedEmployee).subscribe(
       (): void => {
