@@ -16,6 +16,7 @@ export interface AuthResponseDto {
     isAuthSuccessful: boolean;
     errorMessage: string;
     token: string;
+    refreshToken: string;
 }
 
 export interface IdentityResult {
@@ -25,4 +26,14 @@ export interface IdentityResult {
 
 export interface IdentityResultError {
     description: string;
+}
+
+export interface RefreshTokenDto {
+    token: string;
+    refreshToken: string;
+}
+
+export enum LocalStorageKeys {
+    Token = 'token',
+    RefreshToken = 'refreshToken',
 }

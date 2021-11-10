@@ -44,11 +44,14 @@ import { ToastrModule } from 'ngx-toastr';
       positionClass :'toast-bottom-right',
     }) 
   ],
-  providers: [EmployeesService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    EmployeesService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

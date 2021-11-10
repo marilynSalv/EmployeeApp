@@ -21,5 +21,4 @@ namespace EmployeeApp.Dal.Contexts
         public DbSet<Employee> Employees { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
-
 }

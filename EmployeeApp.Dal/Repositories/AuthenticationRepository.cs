@@ -15,21 +15,25 @@ namespace EmployeeApp.Dal.Repositories
             _context = context;
         }
 
-        public async Task<AspNetUserDto> GetUserByUsername(string username)
+        public async Task AddRefreshToken(string username, string refreshToken)
         {
-
-            var result = await _context.ApplicationUsers
+            var entity = await _context.ApplicationUsers
                 .Where(x => x.UserName == username)
-                .Select(x => new AspNetUserDto
-                {
-                    Username = x.UserName,
-                    PasswordHash = x.PasswordHash,
-                    LockoutEnabled = x.LockoutEnabled,
-                    LockoutEndDate = x.LockoutEnd,
-                })
-                .SingleOrDefaultAsync();
+                .SingleAsync();
 
-            return result;
+            entity.RefreshToken = refreshToken;
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsRefreshTokenValid(string username, string refreshToken)
+        {
+            var exists = await _context.ApplicationUsers
+                .Where(x => x.UserName == username)
+                .Where(x => x.RefreshToken == refreshToken)
+                .AnyAsync();
+
+            return exists;
         }
     }
 }

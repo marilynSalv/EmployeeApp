@@ -1,9 +1,8 @@
-﻿using EmployeeApp.Dal.Dtos;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace EmployeeApp.Dal.Repositories
+namespace EmployeeApp.Api.Services
 {
-    public interface IAuthenticationRepository
+    public interface IAuthenticationService
     {
         Task AddRefreshToken(string username, string refreshToken);
         Task<bool> IsRefreshTokenValid(string username, string refreshToken);

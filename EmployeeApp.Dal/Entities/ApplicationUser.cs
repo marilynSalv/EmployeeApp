@@ -13,5 +13,6 @@ namespace EmployeeApp.Dal.Entities
 
         [StringLength(5)]
         public string ZipCode { get; set; }
+        public string RefreshToken { get; set; }
     }
 }
