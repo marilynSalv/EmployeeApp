@@ -8,8 +8,14 @@ namespace EmployeeApp.Dal.Entities
     {
         [Key]
         public int Id { get; set; }
+
+        [StringLength(300)]
         public string FirstName { get; set;  }
+
+        [StringLength(400)]
         public string LastName { get; set;  }
+
+        [StringLength(200)]
         public string Email { get; set;  }
     }
 }

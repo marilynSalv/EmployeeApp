@@ -45,7 +45,7 @@ namespace EmployeeApp.Api
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<PlayGroundContext>()
             .AddDefaultTokenProviders()
-            .AddTokenProvider("MyApp", typeof(DataProtectorTokenProvider<ApplicationUser>));
+            .AddTokenProvider(TokenOptions.DefaultAuthenticatorProvider, typeof(DataProtectorTokenProvider<ApplicationUser>));
 
             services.AddAuthentication(auth =>
             {
@@ -68,16 +68,9 @@ namespace EmployeeApp.Api
                 };
             });
 
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-
             services.AddControllers();
 
-            services.AddSingleton<ISingleton, ScopeService>();
-            services.AddTransient<ITransient, ScopeService>();
-            services.AddScoped<IScoped, ScopeService>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+            ServiceRepositoryRegistrar.ConfigureServices(services);
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString()).AllowAnyMethod().AllowAnyHeader()));

@@ -6,5 +6,6 @@ namespace EmployeeApp.Api.Services
     {
         Task AddRefreshToken(string username, string refreshToken);
         Task<bool> IsRefreshTokenValid(string username, string refreshToken);
+        Task InvalidateRefreshToken(string username);
     }
 }

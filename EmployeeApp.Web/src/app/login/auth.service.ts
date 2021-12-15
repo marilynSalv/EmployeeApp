@@ -28,6 +28,10 @@ export class AuthService {
     return this.http.post<RefreshTokenDto>('https://localhost:44343/auth/refreshToken', JSON.stringify(dto), this.headers);
   }
 
+  logout(): Observable<any> {
+    return this.http.put('https://localhost:44343/auth/logout', this.headers);
+  }
+
   
   public startRefreshTokenTimer(): void {
     if (!this.token){

@@ -69,7 +69,7 @@ namespace EmployeeApp.Api.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddMinutes(1),
+                    Expires = DateTime.UtcNow.AddMinutes(3),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_applicationSettings.JwtSecret)), SecurityAlgorithms.HmacSha256Signature),
                 };
 
@@ -102,10 +102,11 @@ namespace EmployeeApp.Api.Controllers
             }
         }
 
-        [HttpPost("logout")]
-        public async Task Logout()
+        [HttpPut("logout")]
+        public async Task Logout(string username)
         {
-            //remove refresh token from db
+            var x = User.Identity.Name;
+            await _authenticationService.InvalidateRefreshToken(username);
             await _signInManager.SignOutAsync();
         }
 
@@ -154,7 +155,7 @@ namespace EmployeeApp.Api.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_applicationSettings.JwtSecret)), SecurityAlgorithms.HmacSha256Signature),
             };
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeApp.Dal.Entities
@@ -14,5 +15,8 @@ namespace EmployeeApp.Dal.Entities
         [StringLength(5)]
         public string ZipCode { get; set; }
         public string RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiration { get; set; }
+        public DateTime? RefreshTokenCreatedOn { get; set; }
+        public bool? RefreshTokenValid { get; set; }
     }
 }
