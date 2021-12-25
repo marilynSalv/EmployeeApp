@@ -4,14 +4,16 @@ using EmployeeApp.Dal.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeApp.Dal.Migrations
 {
     [DbContext(typeof(PlayGroundContext))]
-    partial class PlayGroundContextModelSnapshot : ModelSnapshot
+    [Migration("20211225061731_Companyfk")]
+    partial class Companyfk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
