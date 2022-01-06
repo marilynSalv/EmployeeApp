@@ -29,7 +29,7 @@ namespace EmployeeApp.Api.Controllers
             _applicationSettings = applicationSettings.Value;
         }
 
-
+        //TEST PIPELINE SYNC
         [HttpPost("Register")]
         public async Task<IdentityResult> Register([FromBody] RegisterDto registerDto)
         {
