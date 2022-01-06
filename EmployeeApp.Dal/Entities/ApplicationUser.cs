@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities
 {
@@ -18,5 +19,14 @@ namespace EmployeeApp.Dal.Entities
         public DateTime? RefreshTokenExpiration { get; set; }
         public DateTime? RefreshTokenCreatedOn { get; set; }
         public bool? RefreshTokenValid { get; set; }
+        public int CompanyId { get; set; }
+        public bool IsManager { get; set; }
+        public string ManagerId { get; set; }
+
+        [ForeignKey("ManagerId")]
+        public virtual ApplicationUser Manager { get; set; }
+
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
     }
 }

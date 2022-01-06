@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
       firstName: this.registerForm.controls['firstName'].value,
       lastName: this.registerForm.controls['lastName'].value,
       zipCode: this.registerForm.controls['zipCode'].value,
+      isManager: this.registerForm.controls['isManager'].value
     }
 
     this.registerService.register(registerDto)
@@ -49,7 +50,23 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-  
+
+  updateValidators(input: string, required: boolean){
+    let field = this.registerForm.get(input);
+    if(!field){
+       return;
+    }
+
+    if (required) {
+      field.setValidators(Validators.required);
+    } else {
+      field.setValidators(null);
+      field.patchValue(undefined);
+    }
+    
+    field.updateValueAndValidity();
+  }
+
   private createForm(): FormGroup {
     return new FormGroup({
       'firstName': new FormControl(null, [Validators.required, Validators.maxLength(300)]),
@@ -58,6 +75,9 @@ export class RegisterComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.maxLength(256)]),
       'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
+      'isManager': new FormControl(),
+      'managerSearch': new FormControl(),
+      'companySearch': new FormControl(null, [Validators.required]),
     });
   }
 

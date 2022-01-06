@@ -10,6 +10,7 @@ export interface RegisterDto {
     firstName: string;
     lastName: string;
     zipCode: string;
+    isManager: boolean;
 }
 
 export interface AuthResponseDto {
