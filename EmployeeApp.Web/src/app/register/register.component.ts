@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { IdentityResult, IdentityResultError, RegisterDto, UserAuthDto } from '../login/user-auth-dto.model';
+import { SearchDto } from '../SharedModels/search-dto.model';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -14,6 +16,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup = this.createForm();
   showError = false;
   errorMessages: IdentityResultError[] = [];
+  searchCompaniesSubscription?: Subscription;
 
   constructor(
     private registerService: RegisterService,
@@ -26,6 +29,7 @@ export class RegisterComponent implements OnInit {
   closeAlert(): void {
     this.showError = false;
   }
+
   register(): void {
     const registerDto: RegisterDto = {
       email: this.registerForm.controls['email'].value,
@@ -65,6 +69,17 @@ export class RegisterComponent implements OnInit {
     }
     
     field.updateValueAndValidity();
+  }
+
+  searchCompanies(): void {
+    const searchDto: SearchDto = {
+      value: 'test',
+      id: 4,
+    };
+    this.searchCompaniesSubscription = this.registerService.searchCompanies(searchDto).subscribe(x => {
+
+    },
+    );
   }
 
   private createForm(): FormGroup {
