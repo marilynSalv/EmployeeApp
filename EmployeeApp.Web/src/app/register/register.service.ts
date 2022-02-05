@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IdentityResult, UserAuthDto } from '../login/user-auth-dto.model';
-import { SearchDto, SelectItemDto } from '../SharedModels/search-dto.model';
+import { SearchDto, SelectItemDto } from '../shared-models/search-dto.model';
 
 @Injectable({
   providedIn: 'root'

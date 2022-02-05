@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { EmployeesService } from './employees/employees.service';
 import { AuthInterceptor } from './auth/auth.integration';
 import { ToastrModule } from 'ngx-toastr';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     ScopeComponent,
     LoginComponent,
     RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserAnimationsModule,

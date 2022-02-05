@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { IdentityResult, IdentityResultError, RegisterDto, UserAuthDto } from '../login/user-auth-dto.model';
-import { SearchDto } from '../SharedModels/search-dto.model';
+import { SearchDto } from '../shared-models/search-dto.model';
 import { RegisterService } from './register.service';
 
 @Component({
