@@ -1,9 +1,10 @@
 ﻿using EmployeeApp.Dal.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Services
 {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IAuthenticationRepository _authenticationRepository;
         public AuthenticationService(IAuthenticationRepository authenticationRepository)
@@ -11,15 +12,20 @@ namespace EmployeeApp.Api.Services
             _authenticationRepository = authenticationRepository;
         }
 
-        public async Task<bool> ValidateLogin(string username, string password)
+        public async Task AddRefreshToken(string username, string refreshToken)
         {
-            var user = await _authenticationRepository.GetUserByUsername(username);
-            if (user == null)
-            {
-                return false;
-            }
+            var expiration = DateTime.UtcNow.AddMinutes(5);
+            await _authenticationRepository.AddRefreshToken(username, refreshToken, expiration);
+        }
 
-            return false;
+        public Task<bool> IsRefreshTokenValid(string username, string refreshToken)
+        {
+            return _authenticationRepository.IsRefreshTokenValid(username, refreshToken);
+        }
+
+        public Task InvalidateRefreshToken(string username)
+        {
+            return _authenticationRepository.InvalidateRefreshToken(username);
         }
     }
 }

@@ -44,7 +44,8 @@ namespace EmployeeApp.Api
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<PlayGroundContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddTokenProvider(TokenOptions.DefaultAuthenticatorProvider, typeof(DataProtectorTokenProvider<ApplicationUser>));
 
             services.AddAuthentication(auth =>
             {
@@ -67,13 +68,9 @@ namespace EmployeeApp.Api
                 };
             });
 
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
             services.AddControllers();
 
-            services.AddSingleton<ISingleton, ScopeService>();
-            services.AddTransient<ITransient, ScopeService>();
-            services.AddScoped<IScoped, ScopeService>();
+            ServiceRepositoryRegistrar.ConfigureServices(services);
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString()).AllowAnyMethod().AllowAnyHeader()));

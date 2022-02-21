@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, Form, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 import { LoginService } from './login.service';
-import { AuthResponseDto, UserAuthDto } from './user-auth-dto.model';
+import { AuthResponseDto, UserAuthDto, LocalStorageKeys } from './user-auth-dto.model';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
 
   constructor(private loginService: LoginService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('token') !== null){
@@ -37,7 +39,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
       (response: AuthResponseDto) => {
         if(response.isAuthSuccessful) {
-          localStorage.setItem("token", response.token);
+          localStorage.setItem(LocalStorageKeys.Token, response.token);
+          localStorage.setItem(LocalStorageKeys.RefreshToken, response.refreshToken);
+          this.authService.startRefreshTokenTimer();
           this.router.navigateByUrl('/employees');
         }
       },

@@ -1,31 +1,44 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, filter, switchMap, take, tap } from "rxjs/operators";
+import { AuthService } from "../login/auth.service";
+import { LocalStorageKeys, RefreshTokenDto } from "../login/user-auth-dto.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
-    // private readonly token: string;
+    constructor(private authService: AuthService) {
+    }
 
-    constructor() {
-        // this.token = localStorage.getItem('token');
+    get token(): string | null {
+        return localStorage.getItem(LocalStorageKeys.Token);
+    }
+
+    get refreshToken(): string | null {
+        return localStorage.getItem(LocalStorageKeys.RefreshToken);
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (localStorage.getItem('token')) {
-            const modReq = req.clone({
-                setHeaders: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            return next.handle(modReq).pipe(
-                tap (
-                success => {console.log('success')},
-                error => {console.log('error')}
-             ));
+        if(this.token === null) {
+            return next.handle(req);
         }
-        return next.handle(req);
+        
+        const newRequest = this.createRequestWithTokenHeader(req); 
+        return next.handle(newRequest);
     }
+
+    private createRequestWithTokenHeader(request: HttpRequest<any>):  HttpRequest<any>{
+       return request.clone({
+            setHeaders: {
+                'Authorization': `Bearer ${this.token}`
+            }
+        });
+    }
+    
+    //   private tokenExpired(token: string): boolean {
+    //     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    //     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+    //   }
 }
