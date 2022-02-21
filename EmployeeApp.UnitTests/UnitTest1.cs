@@ -15,8 +15,7 @@ namespace EmployeeApp.UnitTests
         private AuthenticationService _authenticationService;
         private Mock<IAuthenticationRepository> _authenticationRepository;
 
-        [TestInitialize]
-        public void SetUp()
+        public UnitTest1()
         {
             _mocker = new AutoMocker();
             _authenticationRepository = _mocker.GetMock<IAuthenticationRepository>();
@@ -29,7 +28,7 @@ namespace EmployeeApp.UnitTests
             _authenticationRepository.Setup(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()));
             await _authenticationService.AddRefreshToken("test", "test");
 
-            _authenticationRepository.Verify(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()), Times.Never);
+            _authenticationRepository.Verify(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()), Times.Once);
         }
     }
 }
