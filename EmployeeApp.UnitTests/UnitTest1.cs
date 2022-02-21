@@ -29,7 +29,7 @@ namespace EmployeeApp.UnitTests
             _authenticationRepository.Setup(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()));
             await _authenticationService.AddRefreshToken("test", "test");
 
-            _authenticationRepository.Verify(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()), Times.zero);
+            _authenticationRepository.Verify(x => x.AddRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()), Times.Once);
         }
     }
 }
