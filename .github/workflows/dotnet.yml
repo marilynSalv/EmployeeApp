@@ -29,12 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Setup Angular
     - uses: actions/checkout@v2
+    - name: Setup Angular
     - uses: actions/setup-node@v2
       with:
         node-version: '16.13.x'
-    - run: npm install
-    - run: npm run build
-    - run: npm test
-      
+    - name: Install NPM
+      run: npm install
