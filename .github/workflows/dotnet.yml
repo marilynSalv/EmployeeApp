@@ -35,4 +35,4 @@ jobs:
       with:
         node-version: '16.13.x'
     - name: Install NPM
-      run: npm install
+      run: npm install ./EmployeeApp.Web
