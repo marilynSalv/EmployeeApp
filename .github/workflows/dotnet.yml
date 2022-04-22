@@ -36,5 +36,5 @@ jobs:
         node-version: '16.13.x'
     - name: Install NPM
       run: npm install ./EmployeeApp.Web
-    - name: Build NPM
-      run: npm build ./EmployeeApp.Web
+    - name: test script
+      run: npm run dev ./EmployeeApp.Web
