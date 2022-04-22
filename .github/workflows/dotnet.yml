@@ -27,7 +27,7 @@ jobs:
   buildFE:
     name: Build FE
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup Angular
@@ -37,4 +37,5 @@ jobs:
     - name: Install NPM
       run: npm install ./EmployeeApp.Web
     - name: test script
-      run: npm run dev ./EmployeeApp.Web
+      run: npm run dev
+      working-directory: ./EmployeeApp.Web
