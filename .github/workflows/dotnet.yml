@@ -37,4 +37,4 @@ jobs:
     - name: Install NPM
       run: npm install ./EmployeeApp.Web
     - name: Build NPM
-      run: npm run build ./EmployeeApp.Web
+      run: npm build ./EmployeeApp.Web
