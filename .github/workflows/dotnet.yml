@@ -27,6 +27,9 @@ jobs:
   buildFE:
     name: Build FE
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./EmployeeApp.Web
 
     steps:
     - uses: actions/checkout@v2
@@ -35,7 +38,6 @@ jobs:
       with:
         node-version: '16.13.x'
     - name: Install NPM
-      run: npm install ./EmployeeApp.Web
+      run: npm install
     - name: test script
       run: npm run dev
-      working-directory: ./EmployeeApp.Web
