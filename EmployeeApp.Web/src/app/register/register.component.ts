@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
       field.setValidators(null);
       field.patchValue(undefined);
     }
-    
+
     field.updateValueAndValidity();
   }
 

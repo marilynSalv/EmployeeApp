@@ -9,8 +9,8 @@ import { HierarchyType } from './employees/employee.model';
 })
 
 export class AppComponent implements OnInit {
-  title = 'EmployeeApp3.0';
-  constructor(private router: Router) { 
+  title = 'EmployeeApp';
+  constructor(private router: Router) {
   }
   ngOnInit(): void {
     this.router.navigate(['login'])
