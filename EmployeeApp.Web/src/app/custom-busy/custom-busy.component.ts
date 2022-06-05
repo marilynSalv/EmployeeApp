@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-custom-busy',
   templateUrl: './custom-busy.component.html',
   styleUrls: ['./custom-busy.component.css']
 })
-export class CustomBusyComponent implements OnInit {
+export class CustomBusyComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
