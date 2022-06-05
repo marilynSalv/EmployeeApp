@@ -27,14 +27,19 @@ jobs:
   buildFE:
     name: Build FE
     runs-on: ubuntu-latest
-    
+    defaults:
+      run:
+        working-directory: ./EmployeeApp.Web
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup Angular
       uses: actions/setup-node@v2
       with:
         node-version: '16.13.x'
-    - name: Install NPM
-      run: npm install ./EmployeeApp.Web
     - name: test script
-      run: npm run dev ./EmployeeApp.Web
+      run: npm run dev
+    - name: Install NPM
+      run: npm install
+    - name: Build
+      run: npm run build
