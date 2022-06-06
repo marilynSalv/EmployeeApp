@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { RegisterService } from './register.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm: FormGroup = this.createForm();
   showError = false;
   errorMessages: IdentityResultError[] = [];
@@ -22,9 +22,6 @@ export class RegisterComponent implements OnInit {
     private registerService: RegisterService,
     private router: Router,
     private toastrService: ToastrService) { }
-
-  ngOnInit(): void {
-  }
 
   closeAlert(): void {
     this.showError = false;
@@ -67,7 +64,7 @@ export class RegisterComponent implements OnInit {
       field.setValidators(null);
       field.patchValue(undefined);
     }
-    
+
     field.updateValueAndValidity();
   }
 

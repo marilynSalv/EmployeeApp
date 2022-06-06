@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Employee } from '../employee.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { Employee } from '../employee.model';
   styleUrls: ['./employee.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent {
   // @Input() firstName: string;
   // @Input() lastName: string;
   // @Input() email: string;
@@ -16,13 +16,10 @@ export class EmployeeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
   changeName(): void{
     if(this.employee !== undefined){
       this.employee.firstName = "Test";
-      this.employeeUpdated.emit(this.employee);  
+      this.employeeUpdated.emit(this.employee);
     }
   }
 }

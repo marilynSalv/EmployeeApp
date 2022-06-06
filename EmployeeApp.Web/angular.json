@@ -116,9 +116,21 @@
               "devServerTarget": "EmployeeApp:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "EmployeeApp"
+  "defaultProject": "EmployeeApp",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
