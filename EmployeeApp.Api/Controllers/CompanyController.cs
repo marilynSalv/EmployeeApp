@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
-    [Route("Company")]
     [ApiController]
+    [Route("Company")]
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyService _companyService;

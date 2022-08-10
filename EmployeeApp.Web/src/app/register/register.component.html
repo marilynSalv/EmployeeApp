@@ -8,7 +8,7 @@
                 <li *ngFor="let error of errorMessages">
                     {{error.description}}
                 </li>
-            </ul>  
+            </ul>
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -59,7 +59,7 @@
                     type="search" placeholder="Search a company"
                     aria-label="Company search"
                     formControlName="companySearch"
-                    (ngModelChange)="searchCompanies()">
+                    (keyup)="searchCompanies()">
             </div>
         </div>
         <div class="row">

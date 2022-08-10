@@ -1,8 +1,6 @@
-using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Entities;
-using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
