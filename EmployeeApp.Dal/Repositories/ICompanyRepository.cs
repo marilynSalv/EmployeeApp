@@ -6,6 +6,6 @@ namespace EmployeeApp.Dal.Repositories
 {
     public interface ICompanyRepository
     {
-        Task<List<SelectItemDto>> Search(SearchDto searchDto);
+        Task<List<SelectItemDto>> Search(string searchValue);
     }
 }

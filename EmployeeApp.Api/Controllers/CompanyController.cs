@@ -19,9 +19,9 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPost("Search")]
-        public async Task<ActionResult<List<SelectItemDto>>> SearchCompanies([FromBody]SearchDto searchDto)
+        public async Task<ActionResult<List<SelectItemDto>>> SearchCompanies([FromBody] string searchValue)
         {
-            var results = await _companyService.Search(searchDto);
+            var results = await _companyService.Search(searchValue);
             return results;
         }
     }

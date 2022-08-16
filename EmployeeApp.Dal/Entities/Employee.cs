@@ -17,5 +17,14 @@ namespace EmployeeApp.Dal.Entities
 
         [StringLength(200)]
         public string Email { get; set;  }
+        public int CompanyId { get; set; }
+        public int? ManagerId { get; set; }
+        public bool IsManager { get; set; }
+
+        [ForeignKey("ManagerId")]
+        public Employee Manager { get; set; }
+
+        [ForeignKey("CompanyId")]
+        public Company Company { get; set; }
     }
 }

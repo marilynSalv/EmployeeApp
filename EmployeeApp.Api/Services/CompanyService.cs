@@ -13,9 +13,9 @@ namespace EmployeeApp.Api.Services
             _companyRepository = companyRepository;
         }
 
-        public Task<List<SelectItemDto>> Search(SearchDto searchDto)
+        public Task<List<SelectItemDto>> Search(string searchValue)
         {
-            return _companyRepository.Search(searchDto);
+            return _companyRepository.Search(searchValue);
         }
     }
 }

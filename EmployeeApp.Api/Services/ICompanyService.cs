@@ -6,6 +6,6 @@ namespace EmployeeApp.Api.Services
 {
     public interface ICompanyService
     {
-        Task<List<SelectItemDto>> Search(SearchDto searchDto);
+        Task<List<SelectItemDto>> Search(string searchValue);
     }
 }
