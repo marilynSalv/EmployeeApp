@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeApp.Dal.Contexts
 {
-    public class PlayGroundContext: IdentityDbContext<ApplicationUser>
+    public class PlayGroundContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
 
         public PlayGroundContext(DbContextOptions<PlayGroundContext> options)
@@ -18,7 +18,6 @@ namespace EmployeeApp.Dal.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
     }

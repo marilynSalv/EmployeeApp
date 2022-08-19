@@ -1,4 +1,5 @@
-﻿using EmployeeApp.Dal.Dtos;
+﻿using EmployeeApp.Api.Services;
+using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,17 +13,17 @@ namespace EmployeeApp.Api.Controllers
     [Route("ManagerSearch")]
     public class ManagerSearchController : ControllerBase
     {
-        private readonly IManagerSearchRepository _managerSearchRepository;
+        private readonly IManagerSearchService _managerSearchService;
 
-        public ManagerSearchController(IManagerSearchRepository managerSearchRepository)
+        public ManagerSearchController(IManagerSearchService managerSearchService)
         {
-            _managerSearchRepository = managerSearchRepository;
+            _managerSearchService = managerSearchService;
         }
 
         [HttpPost]
         public async Task<ActionResult<List<ManagerSearchDto>>> PostManagerSearch([FromBody] string searchValue)
         {
-            var results = await _managerSearchRepository.ManagerSearch(searchValue);
+            var results = await _managerSearchService.ManagerSearch(searchValue);
             return results;
         }
 

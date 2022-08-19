@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { IdentityResult, IdentityResultError, RegisterDto, UserAuthDto } from '../login/user-auth-dto.model';
 import { RegisterService } from './register.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SelectItemDto } from '../shared-models/search-dto.model';
 import { ManagerSearchDto } from './employee.model';
+
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -89,7 +90,7 @@ export class RegisterComponent {
       'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
       'isManager': new FormControl(),
-      'managerSearch': new FormControl(),
+      'managerSearch': new FormControl(null, [Validators.required]),
       'companySearch': new FormControl(null, [Validators.required]),
     });
   }
@@ -99,7 +100,7 @@ export class RegisterComponent {
         debounceTime(1200),
         distinctUntilChanged(),
         // switchMap allows returning an observable rather than maps array
-        switchMap( (searchText) =>  this.registerService.searchCompanies(searchText) ),
+        switchMap( (searchText) => searchText.length > 2 ? this.registerService.searchCompanies(searchText) : of([])),
     );
   }
 
@@ -108,7 +109,7 @@ export class RegisterComponent {
         debounceTime(1200),
         distinctUntilChanged(),
         // switchMap allows returning an observable rather than maps array
-        switchMap( (searchText) =>  this.registerService.searchManagers(searchText) ),
+        switchMap( (searchText) => searchText.length > 2 ? this.registerService.searchManagers(searchText) : of([]) ),
     );
   }
 
@@ -117,6 +118,6 @@ export class RegisterComponent {
   }
 
   formatManagerSearch(managerResult: ManagerSearchDto): string {
-    return `${managerResult.lastName}, ${managerResult.firstName}`;
+    return `${managerResult.lastName}, ${managerResult.firstName} (${managerResult.companyName})`;
   }
 }

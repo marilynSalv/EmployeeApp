@@ -17,14 +17,15 @@ public class ManagerSearchRepository : IManagerSearchRepository
 
     public async Task<List<ManagerSearchDto>> ManagerSearch(string searchValue)
     {
-        var results = await _context.Employees
+        var results = await _context.ApplicationUsers
             .Where(x => x.IsManager)
-            .Where(x => x.FirstName.Contains(searchValue) || x.LastName.ToString() == searchValue)
+            .Where(x => x.FirstName.Contains(searchValue) || x.LastName.Contains(searchValue))
             .Select(x => new ManagerSearchDto
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
+                CompanyName = x.Company.Name,
             })
             .ToListAsync();
 

@@ -9,9 +9,10 @@ namespace EmployeeApp.Api
         public static void ConfigureServices(IServiceCollection services)
         {
             // Repositories 
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeManagementRepository, EmployeeManagementRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
 
             // Services
             services.AddSingleton<ISingleton, ScopeService>();
@@ -20,6 +21,7 @@ namespace EmployeeApp.Api
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+            services.AddScoped<IManagerSearchService, ManagerSearchService>();
         }
     }
 }

@@ -26,6 +26,6 @@ export class RegisterService {
   }
 
   searchManagers(searchValue: string): Observable<ManagerSearchDto[]> {
-    return this.http.post<ManagerSearchDto[]>('https://localhost:44343/ManagerSearch/', JSON.stringify(searchValue), this.headers);
+    return this.http.post<ManagerSearchDto[]>('https://localhost:44343/ManagerSearch', JSON.stringify(searchValue), this.headers);
   }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<int>
     {
         [StringLength(300)]
         public string FirstName { get; set; }
@@ -21,7 +21,7 @@ namespace EmployeeApp.Dal.Entities
         public bool? RefreshTokenValid { get; set; }
         public int CompanyId { get; set; }
         public bool IsManager { get; set; }
-        public string ManagerId { get; set; }
+        public int ManagerId { get; set; }
 
         [ForeignKey("ManagerId")]
         public virtual ApplicationUser Manager { get; set; }
