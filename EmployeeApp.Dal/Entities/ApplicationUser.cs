@@ -21,7 +21,7 @@ namespace EmployeeApp.Dal.Entities
         public bool? RefreshTokenValid { get; set; }
         public int CompanyId { get; set; }
         public bool IsManager { get; set; }
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
 
         [ForeignKey("ManagerId")]
         public virtual ApplicationUser Manager { get; set; }

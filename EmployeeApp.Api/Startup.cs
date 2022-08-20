@@ -33,7 +33,7 @@ namespace EmployeeApp.Api
             services.AddDbContextPool<PlayGroundContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
