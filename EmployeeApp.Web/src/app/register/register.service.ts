@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IdentityResult, UserAuthDto } from '../login/user-auth-dto.model';
 import { SelectItemDto } from '../shared-models/search-dto.model';
-import { ManagerSearchDto } from './employee.model';
+import { CompanySearchDto, ManagerSearchDto } from './employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class RegisterService {
     return this.http.post<any>('https://localhost:44343/auth/register', JSON.stringify(dto), this.headers);
   }
 
-  searchCompanies(searchValue: string): Observable<SelectItemDto[]> {
-    return this.http.post<SelectItemDto[]>('https://localhost:44343/company/search', JSON.stringify(searchValue), this.headers);
+  searchCompanies(searchValue: string): Observable<CompanySearchDto[]> {
+    return this.http.post<CompanySearchDto[]>('https://localhost:44343/company/search', JSON.stringify(searchValue), this.headers);
   }
 
   searchManagers(searchValue: string): Observable<ManagerSearchDto[]> {

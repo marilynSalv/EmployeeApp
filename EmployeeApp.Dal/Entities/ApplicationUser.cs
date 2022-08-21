@@ -19,7 +19,7 @@ namespace EmployeeApp.Dal.Entities
         public DateTime? RefreshTokenExpiration { get; set; }
         public DateTime? RefreshTokenCreatedOn { get; set; }
         public bool? RefreshTokenValid { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public bool IsManager { get; set; }
         public int? ManagerId { get; set; }
 

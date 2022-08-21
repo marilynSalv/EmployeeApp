@@ -8,7 +8,7 @@ import { RegisterService } from './register.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SelectItemDto } from '../shared-models/search-dto.model';
-import { ManagerSearchDto } from './employee.model';
+import { CompanySearchDto, ManagerSearchDto } from './employee.model';
 
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -48,7 +48,9 @@ export class RegisterComponent {
       firstName: this.registerForm.controls['firstName'].value,
       lastName: this.registerForm.controls['lastName'].value,
       zipCode: this.registerForm.controls['zipCode'].value,
-      isManager: this.registerForm.controls['isManager'].value
+      isManager: this.registerForm.controls['isManager'].value === true,
+      managerId: this.registerForm.controls['managerSearch'].value?.id ?? null,
+      companyId: this.registerForm.controls['companySearch'].value?.id ?? null,
     }
 
     this.registerService.register(registerDto)
@@ -90,8 +92,8 @@ export class RegisterComponent {
       'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
       'isManager': new FormControl(),
-      'managerSearch': new FormControl(null, [Validators.required]),
-      'companySearch': new FormControl(null, [Validators.required]),
+      'managerSearch': new FormControl(null),
+      'companySearch': new FormControl(null),
     });
   }
 
@@ -113,8 +115,8 @@ export class RegisterComponent {
     );
   }
 
-  formatCompanySearch(companyResult: SelectItemDto): string {
-    return `${companyResult.value}(${companyResult.id})`;
+  formatCompanySearch(companyResult: CompanySearchDto): string {
+    return `${companyResult.name}(${companyResult.industry})`;
   }
 
   formatManagerSearch(managerResult: ManagerSearchDto): string {

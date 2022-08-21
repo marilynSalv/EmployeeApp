@@ -4,3 +4,9 @@ export interface ManagerSearchDto {
     id: number;
     companyName: string;
 }
+
+export interface CompanySearchDto {
+  name: string;
+  industry: string;
+  id: number;
+}

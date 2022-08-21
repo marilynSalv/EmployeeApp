@@ -23,5 +23,9 @@ namespace EmployeeApp.Dal.Dtos
         [Required]
         [MaxLength(5)]
         public string ZipCode { get; set; }
+
+        public int? CompanyId { get; set; }
+        public int? ManagerId { get; set; }
+        public bool IsManager { get; set; }
     }
 }

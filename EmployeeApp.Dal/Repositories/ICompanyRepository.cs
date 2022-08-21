@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EmployeeApp.Dal.Repositories
+namespace EmployeeApp.Dal.Repositories;
+
+public interface ICompanyRepository
 {
-    public interface ICompanyRepository
-    {
-        Task<List<SelectItemDto>> Search(string searchValue);
-    }
+    Task<List<CompanySearchDto>> Search(string searchValue);
 }

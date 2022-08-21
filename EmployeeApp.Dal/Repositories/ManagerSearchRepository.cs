@@ -19,7 +19,7 @@ public class ManagerSearchRepository : IManagerSearchRepository
     {
         var results = await _context.ApplicationUsers
             .Where(x => x.IsManager)
-            .Where(x => x.FirstName.Contains(searchValue) || x.LastName.Contains(searchValue))
+            .Where(x => x.FirstName.Contains(searchValue) || x.LastName.Contains(searchValue) || x.UserName.Contains(searchValue))
             .Select(x => new ManagerSearchDto
             {
                 Id = x.Id,
