@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
-    [Route("Company")]
     [ApiController]
+    [Route("Company")]
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyService _companyService;
@@ -19,9 +19,9 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPost("Search")]
-        public async Task<ActionResult<List<SelectItemDto>>> SearchCompanies([FromBody]SearchDto searchDto)
+        public async Task<ActionResult<List<CompanySearchDto>>> SearchCompanies([FromBody] string searchValue)
         {
-            var results = await _companyService.Search(searchDto);
+            var results = await _companyService.Search(searchValue);
             return results;
         }
     }

@@ -15,14 +15,15 @@ namespace EmployeeApp.Dal.Repositories
             _context = context;
         }
 
-        public async Task<List<SelectItemDto>> Search(SearchDto searchDto)
+        public async Task<List<CompanySearchDto>> Search(string searchValue)
         {
             var results = await _context.Companies
-                .Where(x => x.Name.Contains(searchDto.Value))
-                .Select(x => new SelectItemDto
+                .Where(x => x.Name.Contains(searchValue) || x.Id.ToString() == searchValue)
+                .Select(x => new CompanySearchDto
                 {
                     Id = x.Id,
-                    Value = x.Name,
+                    Name = x.Name,
+                    Industry = x.Industry,
                 })
                 .ToListAsync();
 

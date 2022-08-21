@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Dal.Repositories;
 
-public interface ICompanyRepository
+public interface IManagerSearchRepository
 {
-    Task<List<CompanySearchDto>> Search(string searchValue);
+    Task<List<ManagerSearchDto>> ManagerSearch(string searchValue);
 }

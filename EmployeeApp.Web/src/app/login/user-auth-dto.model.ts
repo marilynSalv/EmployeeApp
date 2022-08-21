@@ -11,6 +11,8 @@ export interface RegisterDto {
     lastName: string;
     zipCode: string;
     isManager: boolean;
+    companyId: number;
+    managerId: number;
 }
 
 export interface AuthResponseDto {

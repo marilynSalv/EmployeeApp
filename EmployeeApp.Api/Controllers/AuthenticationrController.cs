@@ -50,6 +50,9 @@ namespace EmployeeApp.Api.Controllers
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 ZipCode = registerDto.ZipCode,
+                CompanyId = registerDto.CompanyId,
+                ManagerId = registerDto.ManagerId,
+                IsManager = registerDto.IsManager,
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             return result;

@@ -1,8 +1,6 @@
-using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Entities;
-using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +33,7 @@ namespace EmployeeApp.Api
             services.AddDbContextPool<PlayGroundContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;

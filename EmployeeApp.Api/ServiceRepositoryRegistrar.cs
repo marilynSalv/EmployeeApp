@@ -8,15 +8,20 @@ namespace EmployeeApp.Api
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            // Repositories 
+            services.AddScoped<IEmployeeManagementRepository, EmployeeManagementRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
 
+            // Services
             services.AddSingleton<ISingleton, ScopeService>();
             services.AddTransient<ITransient, ScopeService>();
             services.AddScoped<IScoped, ScopeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+            services.AddScoped<IManagerSearchService, ManagerSearchService>();
         }
     }
 }

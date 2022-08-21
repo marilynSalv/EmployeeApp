@@ -8,7 +8,7 @@
                 <li *ngFor="let error of errorMessages">
                     {{error.description}}
                 </li>
-            </ul>  
+            </ul>
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -47,19 +47,39 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="text"
+                <input type="password"
                 formControlName="password"
                 class="form-control" />
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-6 mb-3">
                 <label for="companySearch" class="form-label">Company</label>
-                <input class="form-control"
-                    type="search" placeholder="Search a company"
-                    aria-label="Company search"
-                    formControlName="companySearch"
-                    (ngModelChange)="searchCompanies()">
+                <input
+                  class="form-control"
+                  aria-label="Company search"
+                  formControlName="companySearch"
+                  type="search"
+                  placeholder="Search a company"
+                  [ngbTypeahead]="searchCompanies"
+                  [resultFormatter]="formatCompanySearch"
+                  [inputFormatter]="formatCompanySearch"
+                  [editable]='false'/>
+
+            </div>
+            <div
+              class="col-md-6 mb-3">
+              <label for="managerSearch" class="form-label">Reports to</label>
+              <input
+              class="form-control"
+              aria-label="Manager search"
+              formControlName="managerSearch"
+              type="search"
+              placeholder="Search a Manager"
+              [ngbTypeahead]="searchManagers"
+              [resultFormatter]="formatManagerSearch"
+              [inputFormatter]="formatManagerSearch"
+              [editable]='false'/>
             </div>
         </div>
         <div class="row">
@@ -68,15 +88,10 @@
                 <div class="custom-control custom-switch">
                     <input class="custom-control-input"
                         type="checkbox" id="isManager"
-                        formControlName="isManager"
-                        (change)="updateValidators('managerSearch', registerForm.get('isManager')?.value === true)">
+                        formControlName="isManager">
+
                     <label class="custom-control-label" for="isManager">Manager</label>
                 </div>
-            </div>
-            <div *ngIf="registerForm.get('isManager')?.value === true"
-                class="col-md-4 mb-3">
-                <label for="managerSearch" class="form-label">Reports to</label>
-                <input class="form-control" type="search" placeholder="Search a manager" aria-label="Manager search" formControlName="managerSearch">
             </div>
         </div>
         <div class="row">

@@ -17,6 +17,7 @@ import { EmployeesService } from './employees/employees.service';
 import { AuthInterceptor } from './auth/auth.integration';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     NgBusyModule.forRoot(new BusyConfig({
       backdrop: true,
@@ -44,10 +46,10 @@ import { HomeComponent } from './home/home.component';
     })),
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right',
-    }) 
+    })
   ],
   providers: [
-    EmployeesService, 
+    EmployeesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

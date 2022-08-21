@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Services
 {
-    public interface ICompanyService
+    public interface IManagerSearchService
     {
-        Task<List<CompanySearchDto>> Search(string searchValue);
+        Task<List<ManagerSearchDto>> ManagerSearch(string searchValue);
     }
 }

@@ -16,9 +16,6 @@ namespace EmployeeApp.Dal.Entities
         [StringLength(400)]
         public string Industry { get; set; }
 
-        [StringLength(400)]
-        public string Market { get; set; }
-
         [StringLength(50)]
         public string Symbol { get; set; }
     }

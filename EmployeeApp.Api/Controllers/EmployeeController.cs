@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using EmployeeApp.Dal.Dtos;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -14,10 +15,10 @@ namespace EmployeeApp.Api.Controllers
     [Route("employee")]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeManagementRepository _employeeRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EmployeeController(IEmployeeRepository employeeRepository,
+        public EmployeeController(IEmployeeManagementRepository employeeRepository,
             UserManager<ApplicationUser> userManager)
         {
             _employeeRepository = employeeRepository;
@@ -25,7 +26,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Employee>>> Get()
+        public async Task<ActionResult<List<EmployeeManagementDto>>> Get()
         {
             //var userId = User.Claims.First(x => x.Type == "UserID").Value;
             //var user = await _userManager.FindByIdAsync(userId);
@@ -34,7 +35,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPut]
-        public int Update([FromBody] Employee dto)
+        public int Update([FromBody] EmployeeManagementDto dto)
         {
             var result = _employeeRepository.Update(dto.Id, dto.FirstName);
             return result;

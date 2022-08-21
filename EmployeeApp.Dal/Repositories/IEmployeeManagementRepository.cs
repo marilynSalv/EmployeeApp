@@ -1,12 +1,12 @@
-﻿using EmployeeApp.Dal.Entities;
+﻿using EmployeeApp.Dal.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EmployeeApp.Dal.Repositories
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeManagementRepository
     {
-        Task<List<Employee>> Get();
+        Task<List<EmployeeManagementDto>> Get();
         int Update(int id, string firstName);
     }
 }
