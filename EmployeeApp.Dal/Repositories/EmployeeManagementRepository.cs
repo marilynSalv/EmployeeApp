@@ -27,6 +27,7 @@ namespace EmployeeApp.Dal.Repositories
                     CompanyId = x.CompanyId,
                     ManagerId = x.ManagerId,
                     IsManager = x.IsManager,
+                    ZipCode = x.ZipCode,
 
                 })
                 .Take(10)

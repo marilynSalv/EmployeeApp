@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth/auth.integration';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit-employee-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    EditEmployeeModalComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit Employee</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <form [formGroup]="editEmployeeForm">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div for="lastNameLabel" class="form-label">Last Name</div>
+          <div for="lastName">{{employeeData.lastName}}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div for="firstNameLabel" class="form-label">First Name</div>
+          <div for="firstName">{{employeeData.firstName}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text"
+            formControlName="email"
+            class="form-control"/>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="zipCode" class="form-label">Zip Code</label>
+            <input type="text"
+            formControlName="zipCode"
+            class="form-control"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
