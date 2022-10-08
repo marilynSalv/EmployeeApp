@@ -1,8 +1,8 @@
-import { Employee } from './employee.model';
+import { EmployeeManagementDto } from './employee.model';
 
 describe('Employee', () => {
   it('should create an instance', () => {
-    const emp: Employee = {
+    const emp: EmployeeManagementDto = {
       firstName: "Test",
       lastName: "test",
       email: "test",

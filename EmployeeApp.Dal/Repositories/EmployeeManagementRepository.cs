@@ -36,11 +36,16 @@ namespace EmployeeApp.Dal.Repositories
             return result;
         }
 
-        public int Update(int id, string firstName)
+        public async Task<int> Update(UpdateEmployeeDto employeeDto)
         {
-            var entity = _context.ApplicationUsers.Where(x => x.Id == id).Single();
-            entity.FirstName = firstName;
-            _context.SaveChanges();
+            var entity = await _context.ApplicationUsers
+                .Where(x => x.Id == employeeDto.Id)
+                .SingleAsync();
+
+            entity.Email = employeeDto.Email;
+            entity.ZipCode = employeeDto.ZipCode;
+
+            await _context.SaveChangesAsync();
 
             return entity.Id;
         }

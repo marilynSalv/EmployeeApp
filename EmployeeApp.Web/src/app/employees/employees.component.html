@@ -13,7 +13,7 @@
 
         <div *ngFor="let employee of employees">
             <app-employee
-            (employeeUpdated)="update($event)"
+            (editEmployeeClickEvent)="openEditEmployeeModal($event)"
             [employee]="employee"></app-employee>
         </div>
     </div>
