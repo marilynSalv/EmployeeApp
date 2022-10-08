@@ -36,7 +36,7 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary"
-  [disabled]="!editEmployeeForm.valid"
+  [disabled]="!editEmployeeForm.valid || editEmployeeForm.pristine"
   (click)="saveEmployeeChanges()">Save</button>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cancel')">Cancel</button>
 </div>

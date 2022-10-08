@@ -33,11 +33,8 @@ export class EmployeesComponent implements OnInit {
 
   openEditEmployeeModal(employeeData: EmployeeManagementDto) {
     const modalRef = this.modalService.open(EditEmployeeModalComponent);
-    modalRef.componentInstance.employeeData = employeeData;
-    // modalRef.componentInstance.saveEmployeeEditChanges.subscribe((receivedEntry: UpdateEmployeeDto) => {
-    //   console.log(receivedEntry);
-    // })
 
+    modalRef.componentInstance.employeeData = employeeData;
     modalRef.result.then((updatedEmployeeDto: UpdateEmployeeDto) => {
       if (updatedEmployeeDto) {
         this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(
