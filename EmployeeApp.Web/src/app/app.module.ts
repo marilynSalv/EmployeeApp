@@ -35,16 +35,16 @@ import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit
   ],
   imports: [
     BrowserAnimationsModule,
-    NgBusyModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
     NgBusyModule.forRoot(new BusyConfig({
-      backdrop: true,
+      backdrop: false,
       template: CustomBusyComponent,
-      minDuration: 600,
+      minDuration: 200,
+      wrapperClass: '',
     })),
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right',

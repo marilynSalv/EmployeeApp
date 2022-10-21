@@ -1,4 +1,5 @@
-<!-- <div [ngBusy]="{busy: getSubscription, message: 'Loading...', backdrop: false, delay: 200, minDuration: 600}"></div> -->
+<div [ngBusy]="[getSubscription]"></div>
+<div [ngBusy]="busyConfig"></div>
 <div class="row">
     <div class="col-md-3 offset-md-9">
         <button
@@ -6,15 +7,12 @@
         class="btn btn-primary">Add New Employee</button>
     </div>
 </div>
-<h2>Employees: </h2>
-<div>
-    <!-- <div [ngBusy]="[getSubscription]"></div> -->
-    <div [ngBusy]="busyConfig">
-
-        <div *ngFor="let employee of employees">
-            <app-employee
-            (editEmployeeClickEvent)="openEditEmployeeModal($event)"
-            [employee]="employee"></app-employee>
-        </div>
-    </div>
+<div *ngIf="employees.length > 0">
+  <h2>Employees: </h2>
+  <div *ngFor="let employee of employees">
+    <app-employee
+    (editEmployeeClickEvent)="openEditEmployeeModal($event)"
+    [employee]="employee"></app-employee>
+  </div>
 </div>
+
