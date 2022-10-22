@@ -16,4 +16,8 @@ public class EmployeeManagementDto
     public int? CompanyId { get; set; }
     public int? ManagerId { get; set; }
     public bool IsManager { get; set; }
+    public string CompanyName { get; set; }
+    public string ManagerFirstName { get; set; }
+    public string ManagerLastName { get; set; }
+
 }

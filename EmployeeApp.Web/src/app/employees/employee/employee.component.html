@@ -3,6 +3,11 @@
         <div class="col-md-12">First Name: {{employee.firstName}}</div>
         <div class="col-md-12">Last Name: {{employee.lastName}}</div>
         <div class="col-md-12">Email: {{employee.email}}</div>
+        <div class="col-md-12">Zip Code: {{employee.zipCode}}</div>
+        <div *ngIf="employee.isManager === true" class="col-md-12">Manager</div>
+        <div *ngIf="!!employee.companyId" class="col-md-12">Company: {{employee.companyName}}</div>
+        <div *ngIf="!!employee.managerId" class="col-md-12">Reports to: {{employee.managerLastName}}, {{employee.managerFirstName}}</div>
+
     </div>
     <div class="col-md-3 offset-md-3">
         <button

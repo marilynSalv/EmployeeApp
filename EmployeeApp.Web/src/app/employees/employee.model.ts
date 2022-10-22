@@ -7,7 +7,9 @@ export class EmployeeManagementDto {
     managerId: number | null = null;
     isManager: boolean = false;
     zipCode: string = '';
-
+    companyName: string = '';
+    managerFirstName: string = '';
+    managerLastName: string = '';
 }
 
 export interface HierarchyType {

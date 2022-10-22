@@ -28,7 +28,9 @@ namespace EmployeeApp.Dal.Repositories
                     ManagerId = x.ManagerId,
                     IsManager = x.IsManager,
                     ZipCode = x.ZipCode,
-
+                    CompanyName = x.Company.Name,
+                    ManagerFirstName = x.Manager.FirstName,
+                    ManagerLastName = x.Manager.LastName,
                 })
                 .Take(10)
                 .ToListAsync();
