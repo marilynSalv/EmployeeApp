@@ -41,7 +41,7 @@ import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit
     NgbModule,
     ReactiveFormsModule,
     NgBusyModule.forRoot(new BusyConfig({
-      backdrop: false,
+      backdrop: true,
       template: CustomBusyComponent,
       minDuration: 200,
       wrapperClass: '',
