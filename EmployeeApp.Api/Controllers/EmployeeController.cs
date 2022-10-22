@@ -28,16 +28,14 @@ namespace EmployeeApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<EmployeeManagementDto>>> Get()
         {
-            //var userId = User.Claims.First(x => x.Type == "UserID").Value;
-            //var user = await _userManager.FindByIdAsync(userId);
             var result = await _employeeRepository.Get();
             return result;
         }
 
         [HttpPut]
-        public int Update([FromBody] EmployeeManagementDto dto)
+        public async Task<int> Update([FromBody] UpdateEmployeeDto dto)
         {
-            var result = _employeeRepository.Update(dto.Id, dto.FirstName);
+            var result = await _employeeRepository.Update(dto);
             return result;
         }
     }

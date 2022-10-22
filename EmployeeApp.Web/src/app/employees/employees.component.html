@@ -1,20 +1,18 @@
-<!-- <div [ngBusy]="{busy: getSubscription, message: 'Loading...', backdrop: false, delay: 200, minDuration: 600}"></div> -->
-<div class="row">
-    <div class="col-md-3 offset-md-9">
-        <button
-        (click)="onClick()"
-        class="btn btn-primary">Add New Employee</button>
+<div class="posRel">
+  <div [ngBusy]="[getSubscription]"></div>
+  <div *ngIf="employees.length === 0">
+    There are no employees
+  </div>
+  <div *ngIf="employees.length > 0">
+    <h2>Employee Management</h2>
+    <div *ngFor="let employee of employees">
+      <app-employee
+      (editEmployeeClickEvent)="openEditEmployeeModal($event)"
+      [employee]="employee"></app-employee>
     </div>
+  </div>
 </div>
-<h2>Employees: </h2>
-<div>
-    <!-- <div [ngBusy]="[getSubscription]"></div> -->
-    <div [ngBusy]="busyConfig">
 
-        <div *ngFor="let employee of employees">
-            <app-employee
-            (employeeUpdated)="update($event)"
-            [employee]="employee"></app-employee>
-        </div>
-    </div>
-</div>
+
+
+

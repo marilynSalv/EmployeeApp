@@ -7,6 +7,6 @@ namespace EmployeeApp.Dal.Repositories
     public interface IEmployeeManagementRepository
     {
         Task<List<EmployeeManagementDto>> Get();
-        int Update(int id, string firstName);
+        Task<int> Update(UpdateEmployeeDto employeeDto);
     }
 }

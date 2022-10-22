@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Employee } from '../employee.model';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { EditEmployeeModalComponent } from '../edit-employee-modal/edit-employee-modal.component';
+import { EmployeeManagementDto } from '../employee.model';
 
 @Component({
   selector: 'app-employee',
@@ -8,18 +10,12 @@ import { Employee } from '../employee.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeComponent {
-  // @Input() firstName: string;
-  // @Input() lastName: string;
-  // @Input() email: string;
-  @Input() employee?: Employee;
-  @Output() employeeUpdated = new EventEmitter<Employee>();
+  @Input() employee = new EmployeeManagementDto();
+  @Output() editEmployeeClickEvent = new EventEmitter<EmployeeManagementDto>();
 
   constructor() { }
 
-  changeName(): void{
-    if(this.employee !== undefined){
-      this.employee.firstName = "Test";
-      this.employeeUpdated.emit(this.employee);
-    }
+  clickEditEmployee(employeeData: EmployeeManagementDto): void{
+    this.editEmployeeClickEvent.emit(employeeData);
   }
 }
