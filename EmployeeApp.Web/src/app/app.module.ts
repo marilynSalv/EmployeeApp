@@ -44,7 +44,6 @@ import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit
       backdrop: true,
       template: CustomBusyComponent,
       minDuration: 200,
-      wrapperClass: '',
     })),
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right',
