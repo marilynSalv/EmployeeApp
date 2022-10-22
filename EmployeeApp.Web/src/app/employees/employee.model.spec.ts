@@ -11,7 +11,9 @@ describe('Employee', () => {
       managerId: 1,
       isManager: false,
       zipCode: "33613",
-
+      managerFirstName: "Ted",
+      managerLastName: "Teddy",
+      companyName: "XYZ",
     };
     expect(emp).toBeTruthy();
   });

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EditEmployeeModalComponent } from './edit-employee-modal.component';
 
@@ -8,7 +9,11 @@ describe('EditEmployeeModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditEmployeeModalComponent ]
+      declarations: [ EditEmployeeModalComponent ],
+      imports: [],
+      providers: [
+        NgbActiveModal,
+      ]
     })
     .compileComponents();
   });
