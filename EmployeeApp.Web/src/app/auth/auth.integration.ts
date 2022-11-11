@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, filter, switchMap, take, tap } from "rxjs/operators";
 import { AuthService } from "../login/auth.service";
@@ -9,7 +10,8 @@ import { LocalStorageKeys, RefreshTokenDto } from "../login/user-auth-dto.model"
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService,
+      private router: Router) {
     }
 
     get token(): string | null {
@@ -24,9 +26,15 @@ export class AuthInterceptor implements HttpInterceptor {
         if(this.token === null) {
             return next.handle(req);
         }
-        
-        const newRequest = this.createRequestWithTokenHeader(req); 
-        return next.handle(newRequest);
+
+        const newRequest = this.createRequestWithTokenHeader(req);
+        return next.handle(newRequest).pipe( tap(() => {},
+        (err: any) => {
+          if (err instanceof HttpErrorResponse && err.status === 401) {
+              localStorage.clear();
+              this.router.navigate(['login']);
+          }
+      }));
     }
 
     private createRequestWithTokenHeader(request: HttpRequest<any>):  HttpRequest<any>{
@@ -36,7 +44,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }
         });
     }
-    
+
     //   private tokenExpired(token: string): boolean {
     //     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
     //     return (Math.floor((new Date).getTime() / 1000)) >= expiry;

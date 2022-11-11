@@ -101,16 +101,18 @@ namespace EmployeeApp.Api.Services
             SecurityToken validatedToken = null;
             var principal = tokenHandler.ValidateToken(dto.Token, tokenValidationParams, out validatedToken);
             var jwtToken = validatedToken as JwtSecurityToken;
+            var username = principal.Identity.Name;
 
             if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256))
             {
+                await InvalidateRefreshToken(username);
                 throw new SecurityTokenException("Invalid token passed");
             }
 
-            var username = principal.Identity.Name;
             var isRefreshTokenValid = await IsRefreshTokenValid(username, dto.RefreshToken);
             if (!isRefreshTokenValid)
             {
+                await InvalidateRefreshToken(username);
                 throw new SecurityTokenException("Invalid token passed");
             }
 
@@ -130,9 +132,9 @@ namespace EmployeeApp.Api.Services
             return _authenticationRepository.IsRefreshTokenValid(username, refreshToken);
         }
 
-        public Task InvalidateRefreshToken(string username)
+        public async Task InvalidateRefreshToken(string username)
         {
-            return _authenticationRepository.InvalidateRefreshToken(username);
+            await _authenticationRepository.InvalidateRefreshToken(username);
         }
     }
 }
