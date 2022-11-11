@@ -8,11 +8,11 @@ import { RegisterComponent } from './register/register.component';
 import { ScopeComponent } from './scope/scope.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'employees', component: EmployeesComponent, pathMatch: 'full' , canActivate:[AuthGuard]},
   { path: 'scope', component: ScopeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent, pathMatch: 'full' },
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: RouteNames.Register, component: RegisterComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

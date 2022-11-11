@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IBusyConfig } from 'ng-busy';
 import { Subscription } from 'rxjs';
@@ -16,7 +17,8 @@ export class EmployeesComponent implements OnInit {
   employees: EmployeeManagementDto[] = [];
   getSubscription?: Subscription;
   constructor(private employeesService: EmployeesService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -45,6 +47,11 @@ export class EmployeesComponent implements OnInit {
         );
       }
     });
+  }
+
+  navigateToEditEmployee(employeeData: EmployeeManagementDto) {
+    this.router.navigate([RouteNames.Register],  {animation: "slideTransition"})
+
   }
 
   addEmployee(): void{
