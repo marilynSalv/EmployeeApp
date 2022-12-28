@@ -3,6 +3,7 @@ using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -58,9 +59,9 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpGet("TestSproc")]
-        public void GetTestSproc()
+        public async Task GetTestSproc()
         {
-            _sprocRepository.ReadSprocTest();
+            await _sprocRepository.ReadSprocTest();
         }
     }
 }

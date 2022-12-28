@@ -1,6 +1,8 @@
-﻿namespace EmployeeApp.Dal.Repositories;
+﻿using System.Threading.Tasks;
+
+namespace EmployeeApp.Dal.Repositories;
 
 public interface ISprocRepository
 {
-    void ReadSprocTest();
+    Task ReadSprocTest();
 }
