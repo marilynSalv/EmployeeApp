@@ -13,6 +13,7 @@ namespace EmployeeApp.Api
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
+            services.AddScoped<ISprocRepository, SprocRepository>();
 
             // Services
             services.AddSingleton<ISingleton, ScopeService>();
