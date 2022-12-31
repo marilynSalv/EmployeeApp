@@ -1,4 +1,5 @@
 ﻿using EmployeeApp.Dal.Entities;
+using EmployeeApp.Dal.Entities.DbQueries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,5 +21,9 @@ namespace EmployeeApp.Dal.Contexts
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
+
+        // Dtos for Db Queries
+        public DbSet<TestSprocDto> TestSprocDtos { get; set; }
+
     }
 }

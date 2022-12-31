@@ -1,7 +1,9 @@
 ﻿using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Dtos;
+using EmployeeApp.Dal.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -15,6 +17,7 @@ namespace EmployeeApp.Api.Controllers
         private readonly ITransient _transientService2;
         private readonly ISingleton _singletonService;
         private readonly ISingleton _singletonService2;
+        private readonly ISprocRepository _sprocRepository;
 
         public ScopeController(
             ITransient transientService,
@@ -22,7 +25,8 @@ namespace EmployeeApp.Api.Controllers
             ISingleton singletonService,
             ISingleton singletonService2,
             IScoped scopedService,
-            IScoped scopedService2)
+            IScoped scopedService2,
+            ISprocRepository sprocRepository)
 
         {
             _scopedService = scopedService;
@@ -31,6 +35,7 @@ namespace EmployeeApp.Api.Controllers
             _transientService2 = transientService2;
             _singletonService = singletonService;
             _singletonService2 = singletonService2;
+            _sprocRepository = sprocRepository;
         }
 
         [HttpGet("All")]
@@ -51,6 +56,12 @@ namespace EmployeeApp.Api.Controllers
             };
 
             return new List<RequestDto> { call1, call2 };
+        }
+
+        [HttpGet("TestSproc")]
+        public async Task GetTestSproc()
+        {
+            await _sprocRepository.ReadSprocTest();
         }
     }
 }
