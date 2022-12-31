@@ -25,31 +25,6 @@ public class SprocRepository : ISprocRepository
             .FromSql($"EXECUTE dbo.TestFirstSproc @LastName={lastName}, @FirstName={firstName}")
             .ToListAsync();
 
-
-        //var results = new List<TestSprocDto>();
-
-        //using SqlConnection connection = new SqlConnection("Server=(localdb)\\mssqllocaldb;Database=PlayGround;Trusted_Connection=True;MultipleActiveResultSets=true");
-        //SqlCommand command = new SqlCommand("dbo.TestFirstSproc", connection);
-        //command.CommandType = CommandType.StoredProcedure;
-        ////command.CommandTimeout = 1;
-
-        //command.Parameters.AddWithValue("@FirstName", "Test");
-        //command.Parameters.AddWithValue("@LastName", "Admin");
-
-        //command.Connection.Open();
-        //SqlDataReader reader = command.ExecuteReader();
-        //while (reader.Read())
-        //{
-        //    results.Add(new TestSprocDto()
-        //    {
-        //        Id = (int)reader[0],
-        //        FirstName = (string)reader[1],
-        //        LastName = (string)reader[2],
-        //        Username = (string)reader[3]
-        //    });
-        //}
-        //reader.Close();
-
        var test = results;
     }
 }
