@@ -1,8 +1,5 @@
 ﻿using EmployeeApp.Dal.Contexts;
-using EmployeeApp.Dal.Dtos;
-using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using System.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
