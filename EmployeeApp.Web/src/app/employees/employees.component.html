@@ -5,11 +5,9 @@
   </div>
   <div *ngIf="employees.length > 0">
     <h2>Employee Management</h2>
-    <div *ngFor="let employee of employees">
-      <app-employee
-      (editEmployeeClickEvent)="openEditEmployeeModal($event)"
-      [employee]="employee"></app-employee>
-    </div>
+    <app-employee *ngFor="let employee of employees"
+    (editEmployeeClickEvent)="openEditEmployeeModal($event)"
+    [employee]="employee"></app-employee>
   </div>
 </div>
 
