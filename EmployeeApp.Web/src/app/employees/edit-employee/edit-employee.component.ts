@@ -26,11 +26,19 @@ export class EditEmployeeComponent {
   }
 
   formatCompanySearch(companyResult: CompanySearchDto): string {
-    return `${companyResult.name}(${companyResult.industry})`;
+    if (Boolean(companyResult.industry)) {
+      return `${companyResult.name}(${companyResult.industry})`;
+    }
+
+    return `${companyResult.name}`;
   }
 
   formatManagerSearch(managerResult: ManagerSearchDto): string {
-    return `${managerResult.lastName}, ${managerResult.firstName} (${managerResult.companyName})`;
+    if(Boolean(managerResult.companyName)) {
+      return `${managerResult.lastName}, ${managerResult.firstName} (${managerResult.companyName})`;
+    }
+
+    return `${managerResult.lastName}, ${managerResult.firstName}`;
   }
 
   searchCompanies = (text$: Observable<string>) => {

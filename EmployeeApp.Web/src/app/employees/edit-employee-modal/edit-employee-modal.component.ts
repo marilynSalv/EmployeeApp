@@ -26,10 +26,15 @@ export class EditEmployeeModalComponent  implements OnInit {
 
   private createForm(): FormGroup {
     var managerValue = null;
-    if ( this.employeeData.managerId !== null) {
+    var companyValue = null;
+    if (this.employeeData.managerId !== null) {
       managerValue = { id: this.employeeData.managerId, firstName: this.employeeData.managerFirstName, lastName: this.employeeData.managerLastName } as ManagerSearchDto;
     }
-    var company = { id: this.employeeData.companyId, name: this.employeeData.companyName } as CompanySearchDto;
+
+    if(this.employeeData.companyId !== null){
+      companyValue = { id: this.employeeData.companyId, name: this.employeeData.companyName } as CompanySearchDto;
+    }
+
     var formGroup = new FormGroup({
       'firstName': new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
       'lastName': new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
@@ -37,7 +42,7 @@ export class EditEmployeeModalComponent  implements OnInit {
       'email': new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
       'isManager': new FormControl(this.employeeData.isManager),
       'managerSearch': new FormControl(managerValue),
-      'companySearch': new FormControl(company),
+      'companySearch': new FormControl(companyValue),
     });
 
     return formGroup;
