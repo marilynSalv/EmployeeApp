@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
+import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
 
 @Component({
   selector: 'app-edit-employee-modal',
@@ -24,14 +25,19 @@ export class EditEmployeeModalComponent  implements OnInit {
 
 
   private createForm(): FormGroup {
+    var managerValue = null;
+    if ( this.employeeData.managerId !== null) {
+      managerValue = { id: this.employeeData.managerId, firstName: this.employeeData.managerFirstName, lastName: this.employeeData.managerLastName } as ManagerSearchDto;
+    }
+    var company = { id: this.employeeData.companyId, name: this.employeeData.companyName } as CompanySearchDto;
     var formGroup = new FormGroup({
       'firstName': new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
       'lastName': new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
       'zipCode': new FormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
       'email': new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
       'isManager': new FormControl(this.employeeData.isManager),
-      'managerSearch': new FormControl(this.employeeData.managerId),
-      'companySearch': new FormControl(this.employeeData.companyId),
+      'managerSearch': new FormControl(managerValue),
+      'companySearch': new FormControl(company),
     });
 
     return formGroup;
