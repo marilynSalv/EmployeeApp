@@ -1,15 +1,18 @@
-export class EmployeeManagementDto {
-    id: number = 0;
-    firstName: string = '';
-    lastName: string= '';
-    email: string= '';
-    companyId: number | null = null;
-    managerId: number | null = null;
-    isManager: boolean = false;
-    zipCode: string = '';
-    companyName: string = '';
-    managerFirstName: string = '';
-    managerLastName: string = '';
+export interface EmployeeBaseDto {
+  email: string;
+  firstName: string;
+  lastName: string;
+  zipCode: string;
+  isManager: boolean;
+  companyId: number | null;
+  managerId: number | null;
+}
+
+export interface EmployeeManagementDto extends EmployeeBaseDto{
+    id: number;
+    companyName: string;
+    managerFirstName: string;
+    managerLastName: string;
 }
 
 export interface HierarchyType {
@@ -17,10 +20,8 @@ export interface HierarchyType {
     hierarchyTypeKey?: string;
 }
 
-export interface UpdateEmployeeDto {
+export interface UpdateEmployeeDto extends EmployeeBaseDto {
   id: number;
-  email: string;
-  zipCode: string;
 }
 
 

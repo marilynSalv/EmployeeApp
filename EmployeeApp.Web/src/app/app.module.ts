@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth/auth.integration';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditEmployeeComponent } from './employees/edit-employee/edit-employee.component';
 import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit-employee-modal.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    EditEmployeeComponent,
     EditEmployeeModalComponent,
   ],
   imports: [

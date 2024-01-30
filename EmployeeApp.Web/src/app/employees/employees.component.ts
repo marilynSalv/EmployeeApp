@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IBusyConfig } from 'ng-busy';
 import { Subscription } from 'rxjs';
-import { EditEmployeeModalComponent } from './edit-employee-modal/edit-employee-modal.component';
 import { EmployeeManagementDto, UpdateEmployeeDto } from './employee.model';
 import { EmployeesService } from './employees.service';
+import { RegisterComponent } from '../register/register.component';
+import { ToastrService } from 'ngx-toastr';
+import { EditEmployeeModalComponent } from './edit-employee-modal/edit-employee-modal.component';
 
 @Component({
   selector: 'app-employees',
@@ -16,7 +18,8 @@ export class EmployeesComponent implements OnInit {
   employees: EmployeeManagementDto[] = [];
   getSubscription?: Subscription;
   constructor(private employeesService: EmployeesService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastrService: ToastrService
     ) { }
 
   ngOnInit() {
@@ -35,11 +38,11 @@ export class EmployeesComponent implements OnInit {
     const modalRef = this.modalService.open(EditEmployeeModalComponent);
 
     modalRef.componentInstance.employeeData = employeeData;
-    modalRef.result.then((updatedEmployeeDto: UpdateEmployeeDto) => {
+    modalRef.result.then((updatedEmployeeDto?: UpdateEmployeeDto) => {
       if (updatedEmployeeDto) {
         this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(
           (): void => {
-            console.log("updated employee");
+            this.toastrService.success('Sucessfully updated employee')
             this.getEmployees();
           }
         );

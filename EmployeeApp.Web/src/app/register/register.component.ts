@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of } from 'rxjs';
-import { IdentityResult, IdentityResultError, RegisterDto, UserAuthDto } from '../login/user-auth-dto.model';
+import { IdentityResult, IdentityResultError, RegisterDto } from '../login/user-auth-dto.model';
 import { RegisterService } from './register.service';
-import {Observable, OperatorFunction} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { SelectItemDto } from '../shared-models/search-dto.model';
-import { CompanySearchDto, ManagerSearchDto } from './employee.model';
+import { EmployeeManagementDto } from '../employees/employee.model';
 
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -30,6 +27,9 @@ export class RegisterComponent {
   showError = false;
   errorMessages: IdentityResultError[] = [];
   searchCompaniesSubscription?: Subscription;
+
+  @Input() isMgmtEdit = false;
+  @Input() employeeData?: EmployeeManagementDto;
 
   constructor(
     private registerService: RegisterService,
@@ -67,59 +67,19 @@ export class RegisterComponent {
     );
   }
 
-  updateValidators(input: string, required: boolean){
-    let field = this.registerForm.get(input);
-    if(!field){
-       return;
-    }
-
-    if (required) {
-      field.setValidators(Validators.required);
-    } else {
-      field.setValidators(null);
-      field.patchValue(undefined);
-    }
-
-    field.updateValueAndValidity();
-  }
-
   private createForm(): FormGroup {
-    return new FormGroup({
+    var formGroup = new FormGroup({
+      'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
       'firstName': new FormControl(null, [Validators.required, Validators.maxLength(300)]),
       'lastName': new FormControl(null, [Validators.required, Validators.maxLength(400)]),
       'zipCode': new FormControl(null, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
       'email': new FormControl(null, [Validators.required, Validators.maxLength(256)]),
-      'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
-      'isManager': new FormControl(),
+      'isManager': new FormControl(null),
       'managerSearch': new FormControl(null),
       'companySearch': new FormControl(null),
     });
-  }
 
-  searchCompanies = (text$: Observable<string>) => {
-    return text$.pipe(
-        debounceTime(1200),
-        distinctUntilChanged(),
-        // switchMap allows returning an observable rather than maps array
-        switchMap( (searchText) => searchText.length > 2 ? this.registerService.searchCompanies(searchText) : of([])),
-    );
-  }
-
-  searchManagers = (text$: Observable<string>) => {
-    return text$.pipe(
-        debounceTime(1200),
-        distinctUntilChanged(),
-        // switchMap allows returning an observable rather than maps array
-        switchMap( (searchText) => searchText.length > 2 ? this.registerService.searchManagers(searchText) : of([]) ),
-    );
-  }
-
-  formatCompanySearch(companyResult: CompanySearchDto): string {
-    return `${companyResult.name}(${companyResult.industry})`;
-  }
-
-  formatManagerSearch(managerResult: ManagerSearchDto): string {
-    return `${managerResult.lastName}, ${managerResult.firstName} (${managerResult.companyName})`;
+    return formGroup;
   }
 }
