@@ -5,9 +5,7 @@ export interface UserAuthDto {
     password: string;
 }
 
-export interface RegisterDto extends EmployeeBaseDto {
-    username: string;
-    password: string;
+export interface RegisterDto extends EmployeeBaseDto, UserAuthDto {
 }
 
 export interface AuthResponseDto {

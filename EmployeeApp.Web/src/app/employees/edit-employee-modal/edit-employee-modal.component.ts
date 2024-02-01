@@ -58,7 +58,6 @@ export class EditEmployeeModalComponent  implements OnInit {
       isManager: this.editEmployeeForm.controls['isManager'].value === true,
       managerId: this.editEmployeeForm.controls['managerSearch'].value?.id ?? null,
       companyId: this.editEmployeeForm.controls['companySearch'].value?.id ?? null,
-
     }
 
     this.activeModal.close(updateEmployeeDto);
