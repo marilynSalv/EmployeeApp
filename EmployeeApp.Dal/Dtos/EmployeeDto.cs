@@ -7,14 +7,14 @@ public abstract class EmployeeDto
     [Required(ErrorMessage = "Email is required")]
     public string Email { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "First name is required")]
     public string FirstName { get; set; }
 
 
-    [Required]
+    [Required(ErrorMessage = "Last name is required")]
     public string LastName { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Zip code is required")]
     [MaxLength(5)]
     public string ZipCode { get; set; }
 

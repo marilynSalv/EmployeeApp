@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditEmployeeModalComponent  implements OnInit {
 
   @Input() employeeData: EmployeeManagementDto = {} as EmployeeManagementDto;
-  editEmployeeForm: FormGroup = this.createForm();
+  editEmployeeForm: FormGroup = new FormGroup({});
 
   constructor(public activeModal: NgbActiveModal,
     private employeesService: EmployeesService,
