@@ -3,20 +3,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
 import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
+import { EmployeesService } from '../employees.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-employee-modal',
   templateUrl: './edit-employee-modal.component.html',
   styleUrls: ['./edit-employee-modal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditEmployeeModalComponent  implements OnInit {
 
   @Input() employeeData: EmployeeManagementDto = {} as EmployeeManagementDto;
   editEmployeeForm: FormGroup = this.createForm();
 
-  constructor(public activeModal: NgbActiveModal) {
-    this.editEmployeeForm =  this.createForm();
+  constructor(public activeModal: NgbActiveModal,
+    private employeesService: EmployeesService,
+    private toastrService: ToastrService
+    ) {
   }
 
   ngOnInit(): void {
@@ -49,7 +52,7 @@ export class EditEmployeeModalComponent  implements OnInit {
   }
 
   saveEmployeeChanges(): void {
-    const updateEmployeeDto: UpdateEmployeeDto = {
+    const updatedEmployeeDto: UpdateEmployeeDto = {
       id: this.employeeData.id,
       email: this.editEmployeeForm.controls['email'].value,
       firstName: this.editEmployeeForm.controls['firstName'].value,
@@ -60,7 +63,15 @@ export class EditEmployeeModalComponent  implements OnInit {
       companyId: this.editEmployeeForm.controls['companySearch'].value?.id ?? null,
     }
 
-    this.activeModal.close(updateEmployeeDto);
+    this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(
+      (): void => {
+        this.toastrService.success('Sucessfully updated employee')
+        this.activeModal.close(true);
+      },
+      () => {
+        this.toastrService.error('There was an error updating the employee')
+      }
+    );
   }
 
   close(): void {

@@ -4,7 +4,7 @@ namespace EmployeeApp.Dal.Dtos;
 
 public abstract class EmployeeDto
 {
-    [Required]
+    [Required(ErrorMessage = "Email is required")]
     public string Email { get; set; }
 
     [Required]

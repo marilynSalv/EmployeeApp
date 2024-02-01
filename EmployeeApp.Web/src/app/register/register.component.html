@@ -1,4 +1,14 @@
 <div class="container-fluid">
+  <div *ngIf="showError" class="alert alert-danger" role="alert">
+    <button type="button" class="close" (click)="closeAlert()" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <ul>
+        <li *ngFor="let error of errorMessages">
+            {{error.description}}
+        </li>
+    </ul>
+</div>
   <app-edit-employee [editForm]="registerForm"></app-edit-employee>
     <div class="row">
       <div class="col-md-3 mt-3">
