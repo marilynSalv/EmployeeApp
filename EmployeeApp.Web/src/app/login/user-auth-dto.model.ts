@@ -1,18 +1,13 @@
+import { EmployeeBaseDto } from "../employees/employee.model";
+
 export interface UserAuthDto {
     username: string;
     password: string;
 }
 
-export interface RegisterDto {
+export interface RegisterDto extends EmployeeBaseDto {
     username: string;
-    email: string;
     password: string;
-    firstName: string;
-    lastName: string;
-    zipCode: string;
-    isManager: boolean;
-    companyId: number;
-    managerId: number;
 }
 
 export interface AuthResponseDto {

@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { EditEmployeeModalComponent } from '../edit-employee-modal/edit-employee-modal.component';
 import { EmployeeManagementDto } from '../employee.model';
 
 @Component({
@@ -10,7 +8,7 @@ import { EmployeeManagementDto } from '../employee.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeComponent {
-  @Input() employee = new EmployeeManagementDto();
+  @Input() employee: EmployeeManagementDto = {} as EmployeeManagementDto;
   @Output() editEmployeeClickEvent = new EventEmitter<EmployeeManagementDto>();
 
   constructor() { }

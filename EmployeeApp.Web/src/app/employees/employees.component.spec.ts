@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EmployeesComponent } from './employees.component';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('EmployeesComponent', () => {
   let component: EmployeesComponent;
@@ -10,7 +11,7 @@ describe('EmployeesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule ],
+      imports: [HttpClientTestingModule, ToastrModule.forRoot() ],
       declarations: [ EmployeesComponent ]
     })
     .compileComponents();
