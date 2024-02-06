@@ -4,17 +4,17 @@ namespace EmployeeApp.Dal.Dtos;
 
 public abstract class EmployeeDto
 {
-    [Required(ErrorMessage = "Email is required")]
+    [Required]
     public string Email { get; set; }
 
-    [Required(ErrorMessage = "First name is required")]
+    [Required]
     public string FirstName { get; set; }
 
 
-    [Required(ErrorMessage = "Last name is required")]
+    [Required]
     public string LastName { get; set; }
 
-    [Required(ErrorMessage = "Zip code is required")]
+    [Required]
     [MaxLength(5)]
     public string ZipCode { get; set; }
 
