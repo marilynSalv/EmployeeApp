@@ -1,7 +1,5 @@
 ﻿using EmployeeApp.Api.Services;
 using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
