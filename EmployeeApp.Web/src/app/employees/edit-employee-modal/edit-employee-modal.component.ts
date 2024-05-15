@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
 import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditEmployeeModalComponent  implements OnInit {
 
   @Input() employeeData: EmployeeManagementDto = {} as EmployeeManagementDto;
-  editEmployeeForm: FormGroup = new FormGroup({});
+  editEmployeeForm: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(public activeModal: NgbActiveModal,
     private employeesService: EmployeesService,
@@ -27,7 +27,7 @@ export class EditEmployeeModalComponent  implements OnInit {
   }
 
 
-  private createForm(): FormGroup {
+  private createForm(): UntypedFormGroup {
     var managerValue = null;
     var companyValue = null;
     if (this.employeeData.managerId !== null) {
@@ -38,14 +38,14 @@ export class EditEmployeeModalComponent  implements OnInit {
       companyValue = { id: this.employeeData.companyId, name: this.employeeData.companyName } as CompanySearchDto;
     }
 
-    var formGroup = new FormGroup({
-      'firstName': new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
-      'lastName': new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
-      'zipCode': new FormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
-      'email': new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
-      'isManager': new FormControl(this.employeeData.isManager),
-      'managerSearch': new FormControl(managerValue),
-      'companySearch': new FormControl(companyValue),
+    var formGroup = new UntypedFormGroup({
+      'firstName': new UntypedFormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
+      'lastName': new UntypedFormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
+      'zipCode': new UntypedFormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
+      'email': new UntypedFormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
+      'isManager': new UntypedFormControl(this.employeeData.isManager),
+      'managerSearch': new UntypedFormControl(managerValue),
+      'companySearch': new UntypedFormControl(companyValue),
     });
 
     return formGroup;

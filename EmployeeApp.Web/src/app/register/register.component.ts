@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of } from 'rxjs';
@@ -23,7 +23,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm: FormGroup = this.createForm();
+  registerForm: UntypedFormGroup = this.createForm();
   showError = false;
   errorMessages: IdentityResultError[] = [];
   searchCompaniesSubscription?: Subscription;
@@ -67,17 +67,17 @@ export class RegisterComponent {
     );
   }
 
-  private createForm(): FormGroup {
-    var formGroup = new FormGroup({
-      'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
-      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(300)]),
-      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(400)]),
-      'zipCode': new FormControl(null, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
-      'email': new FormControl(null, [Validators.required, Validators.maxLength(256)]),
-      'isManager': new FormControl(null),
-      'managerSearch': new FormControl(null),
-      'companySearch': new FormControl(null),
+  private createForm(): UntypedFormGroup {
+    var formGroup = new UntypedFormGroup({
+      'username': new UntypedFormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+      'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
+      'firstName': new UntypedFormControl(null, [Validators.required, Validators.maxLength(300)]),
+      'lastName': new UntypedFormControl(null, [Validators.required, Validators.maxLength(400)]),
+      'zipCode': new UntypedFormControl(null, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
+      'email': new UntypedFormControl(null, [Validators.required, Validators.maxLength(256)]),
+      'isManager': new UntypedFormControl(null),
+      'managerSearch': new UntypedFormControl(null),
+      'companySearch': new UntypedFormControl(null),
     });
 
     return formGroup;

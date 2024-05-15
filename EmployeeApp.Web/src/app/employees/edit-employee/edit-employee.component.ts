@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { IdentityResultError } from 'src/app/login/user-auth-dto.model';
@@ -14,7 +14,7 @@ import { RegisterService } from 'src/app/register/register.service';
 })
 export class EditEmployeeComponent {
 
-  @Input() editForm!: FormGroup;
+  @Input() editForm!: UntypedFormGroup;
 
   constructor(
     private registerService: RegisterService

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup, Form, FormControl, Validators } from '@angular/forms';
+import { NgForm, UntypedFormGroup, Form, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { LoginService } from './login.service';
@@ -11,7 +11,7 @@ import { AuthResponseDto, UserAuthDto, LocalStorageKeys } from './user-auth-dto.
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = this.createForm();
+  loginForm: UntypedFormGroup = this.createForm();
   showLoginError = false;
   errorMessage = '';
 
@@ -53,10 +53,10 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  private createForm(): FormGroup {
-    return new FormGroup({
-      'username': new FormControl(null, [Validators.required]),
-      'password': new FormControl(null, [Validators.required]),
+  private createForm(): UntypedFormGroup {
+    return new UntypedFormGroup({
+      'username': new UntypedFormControl(null, [Validators.required]),
+      'password': new UntypedFormControl(null, [Validators.required]),
     });
   }
 
