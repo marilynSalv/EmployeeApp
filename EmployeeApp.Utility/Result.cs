@@ -47,6 +47,7 @@ public class Result<T> : Result
 {
     public T Value { get; set; }
 
+    // The type or member can be accessed by any code in the assembly in which it's declared, or from within a derived class in another assembly.
     protected internal Result (T value, bool success, string error)
         : base(success, error)
     {
