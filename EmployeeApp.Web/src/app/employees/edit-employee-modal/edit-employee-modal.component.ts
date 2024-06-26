@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
-import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
-import { EmployeesService } from '../employees.service';
 import { ToastrService } from 'ngx-toastr';
+import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
+import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-edit-employee-modal',
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditEmployeeModalComponent  implements OnInit {
 
   @Input() employeeData: EmployeeManagementDto = {} as EmployeeManagementDto;
-  editEmployeeForm: UntypedFormGroup = new UntypedFormGroup({});
+  editEmployeeForm: FormGroup = new FormGroup({});
 
   constructor(public activeModal: NgbActiveModal,
     private employeesService: EmployeesService,
@@ -27,7 +27,7 @@ export class EditEmployeeModalComponent  implements OnInit {
   }
 
 
-  private createForm(): UntypedFormGroup {
+  private createForm(): FormGroup {
     var managerValue = null;
     var companyValue = null;
     if (this.employeeData.managerId !== null) {
@@ -38,14 +38,14 @@ export class EditEmployeeModalComponent  implements OnInit {
       companyValue = { id: this.employeeData.companyId, name: this.employeeData.companyName } as CompanySearchDto;
     }
 
-    var formGroup = new UntypedFormGroup({
-      'firstName': new UntypedFormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
-      'lastName': new UntypedFormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
-      'zipCode': new UntypedFormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
-      'email': new UntypedFormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
-      'isManager': new UntypedFormControl(this.employeeData.isManager),
-      'managerSearch': new UntypedFormControl(managerValue),
-      'companySearch': new UntypedFormControl(companyValue),
+    var formGroup = new FormGroup({
+      firstName: new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
+      lastName: new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
+      zipCode: new FormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
+      email: new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
+      isManager: new FormControl(this.employeeData.isManager),
+      managerSearch: new FormControl<ManagerSearchDto | null>(managerValue),
+      companySearch: new FormControl<CompanySearchDto | null>(companyValue),
     });
 
     return formGroup;
@@ -54,13 +54,13 @@ export class EditEmployeeModalComponent  implements OnInit {
   saveEmployeeChanges(): void {
     const updatedEmployeeDto: UpdateEmployeeDto = {
       id: this.employeeData.id,
-      email: this.editEmployeeForm.controls['email'].value,
-      firstName: this.editEmployeeForm.controls['firstName'].value,
-      lastName: this.editEmployeeForm.controls['lastName'].value,
-      zipCode: this.editEmployeeForm.controls['zipCode'].value,
-      isManager: this.editEmployeeForm.controls['isManager'].value === true,
-      managerId: this.editEmployeeForm.controls['managerSearch'].value?.id ?? null,
-      companyId: this.editEmployeeForm.controls['companySearch'].value?.id ?? null,
+      email: this.editEmployeeForm.get('email')?.value,
+      firstName: this.editEmployeeForm.get('firstName')?.value,
+      lastName: this.editEmployeeForm.get('lastName')?.value,
+      zipCode: this.editEmployeeForm.get('zipCode')?.value,
+      isManager: this.editEmployeeForm.get('isManager')?.value === true,
+      managerId: this.editEmployeeForm.get('managerSearch')?.value?.id ?? null,
+      companyId: this.editEmployeeForm.get('companySearch')?.value?.id ?? null,
     }
 
     this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(

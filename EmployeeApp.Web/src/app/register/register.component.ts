@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of } from 'rxjs';
 import { IdentityResult, IdentityResultError, RegisterDto } from '../login/user-auth-dto.model';
 import { RegisterService } from './register.service';
 import { EmployeeManagementDto } from '../employees/employee.model';
+import { CompanySearchDto, ManagerSearchDto } from './employee.model';
 
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -23,7 +24,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm: UntypedFormGroup = this.createForm();
+  registerForm: FormGroup = this.createForm();
   showError = false;
   errorMessages: IdentityResultError[] = [];
   searchCompaniesSubscription?: Subscription;
@@ -67,17 +68,17 @@ export class RegisterComponent {
     );
   }
 
-  private createForm(): UntypedFormGroup {
-    var formGroup = new UntypedFormGroup({
-      'username': new UntypedFormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-      'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
-      'firstName': new UntypedFormControl(null, [Validators.required, Validators.maxLength(300)]),
-      'lastName': new UntypedFormControl(null, [Validators.required, Validators.maxLength(400)]),
-      'zipCode': new UntypedFormControl(null, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
-      'email': new UntypedFormControl(null, [Validators.required, Validators.maxLength(256)]),
-      'isManager': new UntypedFormControl(null),
-      'managerSearch': new UntypedFormControl(null),
-      'companySearch': new UntypedFormControl(null),
+  private createForm(): FormGroup {
+    var formGroup = new FormGroup({
+      username: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+      password: new FormControl<string| null>(null, [Validators.required, Validators.minLength(7), Validators.maxLength(50)]),
+      firstName: new FormControl<string| null>(null, [Validators.required, Validators.maxLength(300)]),
+      lastName: new FormControl<string| null>(null, [Validators.required, Validators.maxLength(400)]),
+      zipCode: new FormControl<string| null>(null, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
+      email: new FormControl<string| null>(null, [Validators.required, Validators.maxLength(256)]),
+      isManager: new FormControl(false),
+      managerSearch: new FormControl<ManagerSearchDto | null>(null),
+      companySearch: new FormControl<CompanySearchDto | null>(null),
     });
 
     return formGroup;
