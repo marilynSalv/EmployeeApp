@@ -12,7 +12,7 @@ export class AuthService {
         'Content-Type': 'application/json'
     })
   };
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
   }
 
   get token(): string | null {
@@ -32,7 +32,7 @@ export class AuthService {
     return this.http.put('https://localhost:44343/auth/logout', this.headers);
   }
 
-  
+
   public startRefreshTokenTimer(): void {
     if (!this.token){
         return;
@@ -57,12 +57,12 @@ export class AuthService {
     };
 
     this.refreshTokenApi(dto)
-    .subscribe(
-        (responseDto: RefreshTokenDto) => {
-            localStorage.setItem(LocalStorageKeys.Token, responseDto.token);
-            localStorage.setItem(LocalStorageKeys.RefreshToken, responseDto.refreshToken);
-            this.startRefreshTokenTimer();
-        }
-    );
+    .subscribe({
+      next: (responseDto: RefreshTokenDto) => {
+        localStorage.setItem(LocalStorageKeys.Token, responseDto.token);
+        localStorage.setItem(LocalStorageKeys.RefreshToken, responseDto.refreshToken);
+        this.startRefreshTokenTimer();
+      }
+    });
   }
 }

@@ -55,8 +55,8 @@ export class RegisterComponent {
     }
 
     this.registerService.register(registerDto)
-      .subscribe(
-      (response: IdentityResult) => {
+    .subscribe({
+      next: (response: IdentityResult) => {
         if(response.succeeded) {
           this.router.navigate(['login'])
           this.toastrService.success('Sucessfully created account');
@@ -65,7 +65,7 @@ export class RegisterComponent {
           this.errorMessages = response.errors;
         }
       }
-    );
+    });
   }
 
   private createForm(): FormGroup {

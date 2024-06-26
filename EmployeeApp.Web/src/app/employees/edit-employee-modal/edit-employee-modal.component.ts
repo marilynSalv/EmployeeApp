@@ -63,15 +63,15 @@ export class EditEmployeeModalComponent  implements OnInit {
       companyId: this.editEmployeeForm.get('companySearch')?.value?.id ?? null,
     }
 
-    this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(
-      (): void => {
+    this.employeesService.updateEmployee(updatedEmployeeDto).subscribe({
+      next: (): void => {
         this.toastrService.success('Sucessfully updated employee')
         this.activeModal.close(true);
       },
-      () => {
+      error: () => {
         this.toastrService.error('There was an error updating the employee')
       }
-    );
+    });
   }
 
   close(): void {

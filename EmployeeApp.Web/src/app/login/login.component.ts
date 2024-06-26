@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password')?.value,
     }
 
-    this.loginService.login(loginDto)
-      .subscribe(
-      (response: AuthResponseDto) => {
+    this.loginService.login(loginDto).subscribe({
+      next: (response: AuthResponseDto) => {
         if(response.isAuthSuccessful) {
           localStorage.setItem(LocalStorageKeys.Token, response.token);
           localStorage.setItem(LocalStorageKeys.RefreshToken, response.refreshToken);
@@ -45,13 +44,13 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/employees');
         }
       },
-      (error) => {
+      error: (error) =>{
         localStorage.clear();
         this.showLoginError = true;
         this.errorMessage = error?.error?.errorMessage;
         this.loginForm.controls['password'].reset('');
       }
-    );
+    });
   }
   private createForm(): FormGroup {
     return new FormGroup({

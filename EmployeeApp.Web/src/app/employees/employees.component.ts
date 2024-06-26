@@ -27,11 +27,11 @@ export class EmployeesComponent implements OnInit {
   }
 
   getEmployees(): void {
-    this.getSubscription = this.employeesService.getEmployees().subscribe(
-      (data): void => {
+    this.getSubscription = this.employeesService.getEmployees().subscribe({
+      next: (data): void => {
         this.employees = data;
       }
-    );
+    });
   }
 
   openEditEmployeeModal(employeeData: EmployeeManagementDto) {
