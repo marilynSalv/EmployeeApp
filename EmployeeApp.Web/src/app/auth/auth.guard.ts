@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../login/auth.service';
-import { LocalStorageKeys, RefreshTokenDto } from '../login/user-auth-dto.model';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { LocalStorageKeys } from '../login/user-auth-dto.model';
 
 @Injectable({
   providedIn: 'root'

@@ -3,14 +3,14 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, filter, switchMap, take, tap } from "rxjs/operators";
-import { AuthService } from "../login/auth.service";
+import { TokenService } from "../login/token.service";
 import { LocalStorageKeys, RefreshTokenDto } from "../login/user-auth-dto.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthService,
+    constructor(private tokenService: TokenService,
       private router: Router) {
     }
 
@@ -44,9 +44,4 @@ export class AuthInterceptor implements HttpInterceptor {
             }
         });
     }
-
-    //   private tokenExpired(token: string): boolean {
-    //     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
-    //     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
-    //   }
 }

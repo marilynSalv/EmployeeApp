@@ -2,17 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocalStorageKeys, RefreshTokenDto } from './user-auth-dto.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class TokenService {
   headers={
     headers: new HttpHeaders({
         'Content-Type': 'application/json'
     })
   };
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   get token(): string | null {
@@ -48,6 +49,8 @@ export class AuthService {
 
   private callRefreshToken(): void {
     if (this.token === null || this.refreshToken === null) {
+      localStorage.clear();
+      this.router.navigateByUrl('/login');
       return;
     }
 

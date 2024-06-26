@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 import { LoginService } from './login.service';
 import { AuthResponseDto, LocalStorageKeys, UserAuthDto } from './user-auth-dto.model';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
     private router: Router,
-    private authService: AuthService) { }
+    private tokenService: TokenService) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('token') !== null){
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         if(response.isAuthSuccessful) {
           localStorage.setItem(LocalStorageKeys.Token, response.token);
           localStorage.setItem(LocalStorageKeys.RefreshToken, response.refreshToken);
-          this.authService.startRefreshTokenTimer();
+          this.tokenService.startRefreshTokenTimer();
           this.router.navigateByUrl('/employees');
         }
       },
