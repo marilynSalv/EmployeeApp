@@ -1,47 +1,57 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, filter, switchMap, take, tap } from "rxjs/operators";
-import { TokenService } from "../login/token.service";
-import { LocalStorageKeys, RefreshTokenDto } from "../login/user-auth-dto.model";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+import { TokenService } from "./token.service";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private tokenService: TokenService,
-      private router: Router) {
+  constructor(private tokenService: TokenService,
+    private toastrService: ToastrService,
+    private router: Router) {
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.tokenService.token == null) {
+        return next.handle(req);
     }
 
-    get token(): string | null {
-        return localStorage.getItem(LocalStorageKeys.Token);
-    }
+    //pipe used for chaining  RxJS operator
+    //Tap: Can perform side effects with observed data but does not modify the stream in any way. . You can think of it as if observable was an array over time, then tap() would be an equivalent to Array.forEach().
+    const newRequest = this.createRequestWithTokenHeader(req);
+    return next.handle(newRequest).pipe(
+      tap({
+        error: (err: any) => {
+          this.handleHttpErrors(err);
+        },
+      })
+    );
+  }
 
-    get refreshToken(): string | null {
-        return localStorage.getItem(LocalStorageKeys.RefreshToken);
-    }
-
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(this.token === null) {
-            return next.handle(req);
+  private handleHttpErrors(error: any): void {
+    if (error instanceof HttpErrorResponse) {
+      switch(error.status){
+        case 401: {
+          this.tokenService.clearGoBackToLogin();
+          this.toastrService.error("Unauthorized, session has ended");
+          break;
         }
-
-        const newRequest = this.createRequestWithTokenHeader(req);
-        return next.handle(newRequest).pipe( tap(() => {},
-        (err: any) => {
-          if (err instanceof HttpErrorResponse && err.status === 401) {
-              localStorage.clear();
-              this.router.navigate(['login']);
-          }
-      }));
+        default: {
+          this.toastrService.error("An unexpected error has occured");
+        }
+      }
     }
+  }
 
-    private createRequestWithTokenHeader(request: HttpRequest<any>):  HttpRequest<any>{
-       return request.clone({
-            setHeaders: {
-                'Authorization': `Bearer ${this.token}`
-            }
-        });
-    }
+  private createRequestWithTokenHeader(request: HttpRequest<any>):  HttpRequest<any>{
+    return request.clone({
+        setHeaders: {
+            'Authorization': `Bearer ${this.tokenService.token}`
+        }
+    });
+  }
 }

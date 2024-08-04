@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenService } from './token.service';
+import { TokenService } from '../auth/token.service';
 import { LoginService } from './login.service';
 import { AuthResponseDto, LocalStorageKeys, UserAuthDto } from './user-auth-dto.model';
 

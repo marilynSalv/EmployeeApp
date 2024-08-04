@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LocalStorageKeys, RefreshTokenDto } from './user-auth-dto.model';
+import { LocalStorageKeys, RefreshTokenDto } from '../login/user-auth-dto.model';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -24,6 +24,9 @@ export class TokenService {
       return localStorage.getItem(LocalStorageKeys.RefreshToken);
   }
 
+  isAuthenticated(): boolean {
+    return this.token !== null;
+  }
 
   refreshTokenApi(dto: RefreshTokenDto): Observable<RefreshTokenDto> {
     return this.http.post<RefreshTokenDto>('https://localhost:44343/auth/refreshToken', JSON.stringify(dto), this.headers);
@@ -33,9 +36,15 @@ export class TokenService {
     return this.http.put('https://localhost:44343/auth/logout', this.headers);
   }
 
+  clearGoBackToLogin(): void {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+
 
   public startRefreshTokenTimer(): void {
     if (!this.token){
+        this.clearGoBackToLogin();
         return;
     }
 
@@ -49,8 +58,7 @@ export class TokenService {
 
   private callRefreshToken(): void {
     if (this.token === null || this.refreshToken === null) {
-      localStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.clearGoBackToLogin();
       return;
     }
 
@@ -65,6 +73,9 @@ export class TokenService {
         localStorage.setItem(LocalStorageKeys.Token, responseDto.token);
         localStorage.setItem(LocalStorageKeys.RefreshToken, responseDto.refreshToken);
         this.startRefreshTokenTimer();
+      },
+      error: () => {
+        this.clearGoBackToLogin();
       }
     });
   }
