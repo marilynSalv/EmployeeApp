@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IdentityResult, UserAuthDto } from '../login/user-auth-dto.model';
+import { IdentityResult, RegisterDto } from '../login/user-auth-dto.model';
 import { SelectItemDto } from '../shared-models/search-dto.model';
 import { CompanySearchDto, ManagerSearchDto } from './employee.model';
 
@@ -17,7 +17,7 @@ export class RegisterService {
   constructor(private http: HttpClient) {
   }
 
-  register(dto: UserAuthDto): Observable<IdentityResult> {
+  register(dto: RegisterDto): Observable<IdentityResult> {
     return this.http.post<any>('https://localhost:44343/auth/register', JSON.stringify(dto), this.headers);
   }
 

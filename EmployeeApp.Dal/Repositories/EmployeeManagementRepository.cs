@@ -44,8 +44,13 @@ namespace EmployeeApp.Dal.Repositories
                 .Where(x => x.Id == employeeDto.Id)
                 .SingleAsync();
 
+            entity.FirstName = employeeDto.FirstName;
+            entity.LastName= employeeDto.LastName;
             entity.Email = employeeDto.Email;
             entity.ZipCode = employeeDto.ZipCode;
+            entity.CompanyId = employeeDto.CompanyId;
+            entity.ManagerId= employeeDto.ManagerId;
+            entity.IsManager = employeeDto.IsManager;
 
             await _context.SaveChangesAsync();
 

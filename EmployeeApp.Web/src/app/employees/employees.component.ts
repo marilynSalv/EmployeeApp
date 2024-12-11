@@ -27,25 +27,19 @@ export class EmployeesComponent implements OnInit {
   }
 
   getEmployees(): void {
-    this.getSubscription = this.employeesService.getEmployees().subscribe(
-      (data): void => {
+    this.getSubscription = this.employeesService.getEmployees().subscribe({
+      next: (data): void => {
         this.employees = data;
       }
-    );
+    });
   }
 
   openEditEmployeeModal(employeeData: EmployeeManagementDto) {
     const modalRef = this.modalService.open(EditEmployeeModalComponent);
-
     modalRef.componentInstance.employeeData = employeeData;
-    modalRef.result.then((updatedEmployeeDto?: UpdateEmployeeDto) => {
-      if (updatedEmployeeDto) {
-        this.employeesService.updateEmployee(updatedEmployeeDto).subscribe(
-          (): void => {
-            this.toastrService.success('Sucessfully updated employee')
-            this.getEmployees();
-          }
-        );
+    modalRef.result.then((refresh?: boolean) => {
+      if (refresh) {
+        this.getEmployees();
       }
     });
   }

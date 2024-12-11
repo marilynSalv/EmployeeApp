@@ -1,29 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { IdentityResultError } from 'src/app/login/user-auth-dto.model';
 import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
 import { RegisterService } from 'src/app/register/register.service';
 
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
-  styleUrls: ['./edit-employee.component.css']
+  styleUrls: ['./edit-employee.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditEmployeeComponent {
 
   @Input() editForm!: FormGroup;
-  @Input() errorMessages: IdentityResultError[] = [];
-  @Input() showError = false;
 
   constructor(
     private registerService: RegisterService
   ) { }
-
-  closeAlert(): void {
-    this.showError = false;
-  }
 
   formatCompanySearch(companyResult: CompanySearchDto): string {
     if (Boolean(companyResult.industry)) {

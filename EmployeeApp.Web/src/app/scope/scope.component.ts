@@ -16,13 +16,12 @@ export class ScopeComponent implements OnInit {
   ngOnInit(): void {
     this.getRequests();
   }
-  
+
   getRequests(): void {
-    this.getSubscription = this.scopeService.getScopeExample().subscribe(
-      (data: RequestDto[]): void => {
+    this.getSubscription = this.scopeService.getScopeExample().subscribe({
+      next: (data: RequestDto[]): void => {
         this.requests = data;
       }
-    );
+    });
   }
-
 }

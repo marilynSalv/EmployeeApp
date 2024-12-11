@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup, Form, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { TokenService } from '../auth/token.service';
 import { LoginService } from './login.service';
-import { AuthResponseDto, UserAuthDto, LocalStorageKeys } from './user-auth-dto.model';
+import { AuthResponseDto, LocalStorageKeys, UserAuthDto } from './user-auth-dto.model';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
     private router: Router,
-    private authService: AuthService) { }
+    private tokenService: TokenService) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('token') !== null){
@@ -31,32 +31,31 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const loginDto: UserAuthDto = {
-      username: this.loginForm.controls['username'].value,
-      password: this.loginForm.controls['password'].value,
+      username: this.loginForm.get('username')?.value,
+      password: this.loginForm.get('password')?.value,
     }
 
-    this.loginService.login(loginDto)
-      .subscribe(
-      (response: AuthResponseDto) => {
+    this.loginService.login(loginDto).subscribe({
+      next: (response: AuthResponseDto) => {
         if(response.isAuthSuccessful) {
           localStorage.setItem(LocalStorageKeys.Token, response.token);
           localStorage.setItem(LocalStorageKeys.RefreshToken, response.refreshToken);
-          this.authService.startRefreshTokenTimer();
+          this.tokenService.startRefreshTokenTimer();
           this.router.navigateByUrl('/employees');
         }
       },
-      (error) => {
+      error: (error) =>{
         localStorage.clear();
         this.showLoginError = true;
         this.errorMessage = error?.error?.errorMessage;
         this.loginForm.controls['password'].reset('');
       }
-    );
+    });
   }
   private createForm(): FormGroup {
     return new FormGroup({
-      'username': new FormControl(null, [Validators.required]),
-      'password': new FormControl(null, [Validators.required]),
+      username: new FormControl<string | null>(null, [Validators.required]),
+      password: new FormControl<string| null>(null, [Validators.required]),
     });
   }
 

@@ -1,22 +1,25 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
+import { ToastrService } from 'ngx-toastr';
 import { CompanySearchDto, ManagerSearchDto } from 'src/app/register/employee.model';
+import { EmployeeManagementDto, UpdateEmployeeDto } from '../employee.model';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-edit-employee-modal',
   templateUrl: './edit-employee-modal.component.html',
   styleUrls: ['./edit-employee-modal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditEmployeeModalComponent  implements OnInit {
 
   @Input() employeeData: EmployeeManagementDto = {} as EmployeeManagementDto;
-  editEmployeeForm: FormGroup = this.createForm();
+  editEmployeeForm: FormGroup = new FormGroup({});
 
-  constructor(public activeModal: NgbActiveModal) {
-    this.editEmployeeForm =  this.createForm();
+  constructor(public activeModal: NgbActiveModal,
+    private employeesService: EmployeesService,
+    private toastrService: ToastrService
+    ) {
   }
 
   ngOnInit(): void {
@@ -36,32 +39,39 @@ export class EditEmployeeModalComponent  implements OnInit {
     }
 
     var formGroup = new FormGroup({
-      'firstName': new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
-      'lastName': new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
-      'zipCode': new FormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
-      'email': new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
-      'isManager': new FormControl(this.employeeData.isManager),
-      'managerSearch': new FormControl(managerValue),
-      'companySearch': new FormControl(companyValue),
+      firstName: new FormControl(this.employeeData.firstName, [Validators.required, Validators.maxLength(300)]),
+      lastName: new FormControl(this.employeeData.lastName, [Validators.required, Validators.maxLength(400)]),
+      zipCode: new FormControl(this.employeeData.zipCode, [Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]{5}')]),
+      email: new FormControl(this.employeeData.email, [Validators.required, Validators.maxLength(256)]),
+      isManager: new FormControl(this.employeeData.isManager),
+      managerSearch: new FormControl<ManagerSearchDto | null>(managerValue),
+      companySearch: new FormControl<CompanySearchDto | null>(companyValue),
     });
 
     return formGroup;
   }
 
   saveEmployeeChanges(): void {
-    const updateEmployeeDto: UpdateEmployeeDto = {
+    const updatedEmployeeDto: UpdateEmployeeDto = {
       id: this.employeeData.id,
-      email: this.editEmployeeForm.controls['email'].value,
-      firstName: this.editEmployeeForm.controls['firstName'].value,
-      lastName: this.editEmployeeForm.controls['lastName'].value,
-      zipCode: this.editEmployeeForm.controls['zipCode'].value,
-      isManager: this.editEmployeeForm.controls['isManager'].value === true,
-      managerId: this.editEmployeeForm.controls['managerSearch'].value?.id ?? null,
-      companyId: this.editEmployeeForm.controls['companySearch'].value?.id ?? null,
-
+      email: this.editEmployeeForm.get('email')?.value,
+      firstName: this.editEmployeeForm.get('firstName')?.value,
+      lastName: this.editEmployeeForm.get('lastName')?.value,
+      zipCode: this.editEmployeeForm.get('zipCode')?.value,
+      isManager: this.editEmployeeForm.get('isManager')?.value === true,
+      managerId: this.editEmployeeForm.get('managerSearch')?.value?.id ?? null,
+      companyId: this.editEmployeeForm.get('companySearch')?.value?.id ?? null,
     }
 
-    this.activeModal.close(updateEmployeeDto);
+    this.employeesService.updateEmployee(updatedEmployeeDto).subscribe({
+      next: (): void => {
+        this.toastrService.success('Sucessfully updated employee')
+        this.activeModal.close(true);
+      },
+      error: () => {
+        this.toastrService.error('There was an error updating the employee')
+      }
+    });
   }
 
   close(): void {
