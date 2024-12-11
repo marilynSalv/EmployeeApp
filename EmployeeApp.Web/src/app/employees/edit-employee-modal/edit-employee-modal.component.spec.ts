@@ -1,7 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EditEmployeeModalComponent } from './edit-employee-modal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { EmployeesService } from '../employees.service';
+import { ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('EditEmployeeModalComponent', () => {
   let component: EditEmployeeModalComponent;
@@ -10,9 +14,11 @@ describe('EditEmployeeModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ EditEmployeeModalComponent ],
-      imports: [],
+      imports: [HttpClientTestingModule, ToastrModule.forRoot({
+        positionClass :'toast-bottom-right',
+      })],
       providers: [
-        NgbActiveModal,
+        NgbActiveModal, EmployeesService, ToastrService
       ]
     })
     .compileComponents();
