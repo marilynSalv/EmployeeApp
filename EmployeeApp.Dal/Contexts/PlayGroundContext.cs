@@ -16,11 +16,14 @@ namespace EmployeeApp.Dal.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PlayGroundContext).Assembly);
+            modelBuilder.Ignore<TestSprocDto>();
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<File> Files { get; set; }
 
         // Dtos for Db Queries
         public DbSet<TestSprocDto> TestSprocDtos { get; set; }
