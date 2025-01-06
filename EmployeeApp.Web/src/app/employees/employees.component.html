@@ -5,11 +5,41 @@
   </div>
   <div *ngIf="employees.length > 0">
     <h2>Employee Management</h2>
-    <div *ngFor="let employee of employees">
+    <table>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Company</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let employee of employees">
+        <td></td>
+        <td>
+          {{employee.firstName}} {{employee.lastName}}
+        </td>
+        <td>
+          <div>{{employee.email}}</div>
+          <div>{{employee.zipCode}}</div>
+        </td>
+        <td>
+          <div *ngIf="employee.isManager === true">Management</div>
+          <div *ngIf="!!employee.companyId">Works at {{employee.companyName}}</div>
+          <div *ngIf="!!employee.managerId">Reports to {{employee.managerLastName}}, {{employee.managerFirstName}}</div>
+        </td>
+        <td>
+          <button
+          (click)="openEditEmployeeModal(employee)"
+          class="btn btn-secondary">Edit Employee</button>
+        </td>
+      </tr>
+    </table>
+    <!-- <div *ngFor="let employee of employees">
+
       <app-employee
       (editEmployeeClickEvent)="openEditEmployeeModal($event)"
       [employee]="employee"></app-employee>
-    </div>
+    </div> -->
   </div>
 </div>
 
