@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenService } from '../auth/token.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,10 +10,10 @@ import { Router } from '@angular/router';
 export class NavMenuComponent {
   isExpanded = false;
 
-  constructor(private router: Router) { }
+  constructor(private tokenService: TokenService) { }
 
   get showLogout(): boolean {
-    return localStorage.getItem('token') !== null;
+    return this.tokenService.token !== null;
   }
 
   collapse() {
@@ -24,7 +25,6 @@ export class NavMenuComponent {
   }
 
   onLogout(): void {
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.tokenService.clearGoBackToLogin();
   }
 }

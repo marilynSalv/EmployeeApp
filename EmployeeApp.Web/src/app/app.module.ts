@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employees/employee/employee.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +24,6 @@ import { EditEmployeeModalComponent } from './employees/edit-employee-modal/edit
   declarations: [
     AppComponent,
     NavMenuComponent,
-    EmployeeComponent,
     EmployeesComponent,
     CustomBusyComponent,
     ScopeComponent,
