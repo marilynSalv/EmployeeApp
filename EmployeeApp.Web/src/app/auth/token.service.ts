@@ -16,6 +16,8 @@ export class TokenService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  private refreshTokenTimeoutId: number | null = null;
+
   get token(): string | null {
     return localStorage.getItem(LocalStorageKeys.Token);
   }
@@ -37,6 +39,7 @@ export class TokenService {
   }
 
   clearGoBackToLogin(): void {
+    this.clearRefreshTokenTimer();
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }
@@ -53,7 +56,14 @@ export class TokenService {
     // set a timeout to refresh the token a minute before it expires
     const expires = new Date(tokenExpiration * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
-    setTimeout(() => this.callRefreshToken(), timeout);
+    this.refreshTokenTimeoutId = window.setTimeout(() => this.callRefreshToken(), timeout);
+  }
+
+  public clearRefreshTokenTimer(): void {
+    if (this.refreshTokenTimeoutId) {
+        clearTimeout(this.refreshTokenTimeoutId);
+        this.refreshTokenTimeoutId = null;
+    }
   }
 
   private callRefreshToken(): void {
