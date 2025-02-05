@@ -31,7 +31,7 @@ namespace EmployeeApp.Api
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
             services.AddDbContextPool<PlayGroundContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
+                options => options.UseNpgsql(Configuration.GetConnectionString("PlayGroundContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
