@@ -5,5 +5,5 @@ namespace EmployeeApp.Business.Services;
 public interface IEmployeeManagementService
 {
     Task<List<EmployeeManagementDto>> GetEmployees();
-    Task<int> UpdateEmployee(UpdateEmployeeDto dto);
+    Task<Guid> UpdateEmployee(UpdateEmployeeDto dto);
 }

@@ -3,10 +3,11 @@ using EmployeeApp.Dal.Entities.DbQueries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace EmployeeApp.Dal.Contexts
 {
-    public class PlayGroundContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
+    public class PlayGroundContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
 
         public PlayGroundContext(DbContextOptions<PlayGroundContext> options)

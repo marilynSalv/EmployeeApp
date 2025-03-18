@@ -1,8 +1,8 @@
-﻿namespace EmployeeApp.Dal.Dtos
+﻿using System;
+namespace EmployeeApp.Dal.Dtos;
+
+public class SearchDto
 {
-    public class SearchDto
-    {
-        public int Id { get; set; }
-        public string Value { get; set; }
-    }
+    public Guid Id { get; set; }
+    public string Value { get; set; }
 }

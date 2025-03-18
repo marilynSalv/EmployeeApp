@@ -1,7 +1,7 @@
 ﻿using EmployeeApp.Dal.Contexts;
 using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace EmployeeApp.Dal.Repositories
             return result;
         }
 
-        public async Task<int> Update(UpdateEmployeeDto employeeDto)
+        public async Task<Guid> Update(UpdateEmployeeDto employeeDto)
         {
             var entity = await _context.ApplicationUsers
                 .Where(x => x.Id == employeeDto.Id)

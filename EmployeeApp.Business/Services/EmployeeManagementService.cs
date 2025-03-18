@@ -17,7 +17,7 @@ public class EmployeeManagementService : IEmployeeManagementService
         return await _employeeManagementRepository.Get();
     }
 
-    public async Task<int> UpdateEmployee(UpdateEmployeeDto dto)
+    public async Task<Guid> UpdateEmployee(UpdateEmployeeDto dto)
     {
         return await _employeeManagementRepository.Update(dto);
     }
