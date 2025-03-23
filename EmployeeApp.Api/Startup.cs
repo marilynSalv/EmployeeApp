@@ -31,7 +31,10 @@ namespace EmployeeApp.Api
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
             services.AddDbContextPool<PlayGroundContext>(
-                options => options.UseNpgsql(Configuration.GetConnectionString("PlayGroundContext")));
+                options => {
+                    options.UseNpgsql(Configuration.GetConnectionString("PlayGroundContext"));
+                    options.UseSnakeCaseNamingConvention();
+                 });
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
