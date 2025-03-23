@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities;
 
-[Table("File", Schema = "dbo")]
+[Table("file", Schema = "dbo")]
 public class File
 {
     [Key]

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities
 {
-    [Table("Company", Schema = "dbo")]
+    [Table("company", Schema = "dbo")]
 
     public class Company
     {
