@@ -33,7 +33,7 @@ namespace EmployeeApp.Api
             services.AddDbContextPool<PlayGroundContext>(
                 options => options.UseNpgsql(Configuration.GetConnectionString("PlayGroundContext")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
@@ -43,7 +43,7 @@ namespace EmployeeApp.Api
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<PlayGroundContext>()
             .AddDefaultTokenProviders()
-            .AddTokenProvider(TokenOptions.DefaultAuthenticatorProvider, typeof(DataProtectorTokenProvider<ApplicationUser>));
+            .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultAuthenticatorProvider);
 
             services.AddAuthentication(auth =>
             {
