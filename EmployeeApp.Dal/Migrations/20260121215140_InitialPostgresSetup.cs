@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeApp.Dal.Migrations
 {
     /// <inheritdoc />
-    public partial class PostgresInitialSetup : Migration
+    public partial class InitialPostgresSetup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,7 +69,7 @@ namespace EmployeeApp.Dal.Migrations
                     first_name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     last_name = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false),
                     zip_code = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
-                    refresh_token = table.Column<string>(type: "text", nullable: false),
+                    refresh_token = table.Column<string>(type: "text", nullable: true),
                     refresh_token_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     refresh_token_created_on = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     refresh_token_valid = table.Column<bool>(type: "boolean", nullable: true),

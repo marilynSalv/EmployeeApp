@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeApp.Dal.Migrations
 {
     [DbContext(typeof(PlayGroundContext))]
-    [Migration("20260121211321_FixMakeRefreshTokenNullable")]
-    partial class FixMakeRefreshTokenNullable
+    [Migration("20260121215140_InitialPostgresSetup")]
+    partial class InitialPostgresSetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
