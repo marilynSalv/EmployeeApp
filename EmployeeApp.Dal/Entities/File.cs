@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities;
 
-[Table("File", Schema = "dbo")]
+[Table("file")]
 public class File
 {
     [Key]
@@ -14,6 +14,6 @@ public class File
     public string FileExtension { get; set; }
     public string FileName { get; set; }
     public DateTime CreatedOn { get; set; }
-    public int? ApplicationUserId { get; set; }
+    public Guid? UserId { get; set; }
 }
     

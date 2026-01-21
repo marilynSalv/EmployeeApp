@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities
 {
-    [Table("Company", Schema = "dbo")]
+    [Table("company")]
 
     public class Company
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [StringLength(50)]
         public string Name { get; set; }

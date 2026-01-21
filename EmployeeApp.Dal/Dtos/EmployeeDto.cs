@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeApp.Dal.Dtos;
 
@@ -18,7 +19,7 @@ public abstract class EmployeeDto
     [MaxLength(5)]
     public string ZipCode { get; set; }
 
-    public int? CompanyId { get; set; }
-    public int? ManagerId { get; set; }
+    public Guid? CompanyId { get; set; }
+    public Guid? ManagerId { get; set; }
     public bool IsManager { get; set; }
 }

@@ -1,6 +1,8 @@
-﻿namespace EmployeeApp.Dal.Dtos;
+﻿using System;
+
+namespace EmployeeApp.Dal.Dtos;
 
 public class UpdateEmployeeDto : EmployeeDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 }

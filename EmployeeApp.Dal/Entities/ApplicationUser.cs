@@ -7,23 +7,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Dal.Entities;
 
-public class ApplicationUser : IdentityUser<int>
+public class ApplicationUser : IdentityUser<Guid>
 {
     [StringLength(300)]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
     [StringLength(400)]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
     [StringLength(5)]
-    public string ZipCode { get; set; }
-    public string RefreshToken { get; set; }
+    public required string ZipCode { get; set; }
+    public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiration { get; set; }
     public DateTime? RefreshTokenCreatedOn { get; set; }
     public bool? RefreshTokenValid { get; set; }
-    public int? CompanyId { get; set; }
+    public Guid? CompanyId { get; set; }
     public bool IsManager { get; set; }
-    public int? ManagerId { get; set; }
+    public Guid? ManagerId { get; set; }
     public File? Photo { get; set; }
 
     [ForeignKey("ManagerId")]
@@ -39,7 +39,7 @@ internal class ApplicationUserConfiguration : IEntityTypeConfiguration<Applicati
     {
         builder.HasOne(user => user.Photo)
             .WithOne()
-            .HasForeignKey<File>(file => file.ApplicationUserId)
+            .HasForeignKey<File>(file => file.UserId)
             .IsRequired(false);
     }
 }

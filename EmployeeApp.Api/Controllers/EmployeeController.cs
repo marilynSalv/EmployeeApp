@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Business.Services;
+using System;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<int> Update([FromBody] UpdateEmployeeDto dto)
+        public async Task<Guid> Update([FromBody] UpdateEmployeeDto dto)
         {
             var result = await _employeeManagementService.UpdateEmployee(dto);
             return result;

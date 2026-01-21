@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 
@@ -31,9 +32,12 @@ namespace EmployeeApp.Api
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
             services.AddDbContextPool<PlayGroundContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("PlayGroundContext")));
+                options => {
+                    options.UseNpgsql(Configuration.GetConnectionString("PlayGroundContext"));
+                    options.UseSnakeCaseNamingConvention();
+                 });
 
-            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
@@ -43,7 +47,7 @@ namespace EmployeeApp.Api
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<PlayGroundContext>()
             .AddDefaultTokenProviders()
-            .AddTokenProvider(TokenOptions.DefaultAuthenticatorProvider, typeof(DataProtectorTokenProvider<ApplicationUser>));
+            .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultAuthenticatorProvider);
 
             services.AddAuthentication(auth =>
             {
@@ -67,7 +71,11 @@ namespace EmployeeApp.Api
             });
 
             services.AddControllers();
-
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "V1 Api", Version = "v1" });
+            });
             ServiceRepositoryRegistrar.ConfigureServices(services);
 
             services.AddCors(options => options.AddDefaultPolicy(
@@ -80,6 +88,12 @@ namespace EmployeeApp.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Api");
+                    c.RoutePrefix = string.Empty; // Serve Swagger UI at the app's root (optional)
+                });
             }
 
             app.UseHttpsRedirection();

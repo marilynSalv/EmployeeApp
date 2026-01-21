@@ -8,11 +8,12 @@ import { ScopeComponent } from './scope/scope.component';
 import { AuthGaurd } from './auth/auth.gaurd';
 
 const routes: Routes = [
-  { path: 'employees', component: EmployeesComponent, pathMatch: 'full', canActivate:[AuthGaurd] },
+  { path: 'employees', component: EmployeesComponent, pathMatch: 'full', canActivate:[AuthGaurd], title: "Employees" },
   { path: 'scope', component: ScopeComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full', title: "EmployeeApp - Login" },
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, pathMatch: 'full', title: "Home"},
+  { path: '', pathMatch: 'full', redirectTo: "/home" },
 ];
 
 @NgModule({
