@@ -10,14 +10,14 @@ namespace EmployeeApp.Dal.Entities;
 public class ApplicationUser : IdentityUser<Guid>
 {
     [StringLength(300)]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
     [StringLength(400)]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
     [StringLength(5)]
-    public string ZipCode { get; set; }
-    public string RefreshToken { get; set; }
+    public required string ZipCode { get; set; }
+    public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiration { get; set; }
     public DateTime? RefreshTokenCreatedOn { get; set; }
     public bool? RefreshTokenValid { get; set; }
