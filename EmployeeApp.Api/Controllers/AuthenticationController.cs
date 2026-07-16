@@ -11,14 +11,11 @@ namespace EmployeeApp.Api.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAuthenticationService _authenticationService;
 
         public AuthenticationController(
-            SignInManager<ApplicationUser> signInManager,
             IAuthenticationService authenticationService)
         {
-            _signInManager = signInManager;
             _authenticationService = authenticationService;
         }
 
@@ -61,7 +58,6 @@ namespace EmployeeApp.Api.Controllers
         {
             var x = User.Identity.Name;
             await _authenticationService.InvalidateRefreshToken(username);
-            await _signInManager.SignOutAsync();
         }
     }
 }

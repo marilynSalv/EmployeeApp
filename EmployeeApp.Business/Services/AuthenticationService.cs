@@ -14,7 +14,6 @@ namespace EmployeeApp.Business.Services
     {
         private readonly IAuthenticationRepository _authenticationRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IRefreshTokenGenerator _refreshTokenGenerator;
         private readonly ApplicationSettings _applicationSettings;
 
@@ -22,12 +21,10 @@ namespace EmployeeApp.Business.Services
         public AuthenticationService(IAuthenticationRepository authenticationRepository,
             IRefreshTokenGenerator refreshTokenGenerator,
             IOptions<ApplicationSettings> applicationSettings,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<ApplicationUser> userManager)
         {
             _authenticationRepository = authenticationRepository;
             _userManager = userManager;
-            _signInManager = signInManager;
             _refreshTokenGenerator = refreshTokenGenerator;
             _applicationSettings = applicationSettings.Value;
         }
@@ -35,7 +32,6 @@ namespace EmployeeApp.Business.Services
         public async Task<IdentityResult> CreateUser(RegisterDto registerDto)
         {
             //TODO: validate dto
-
             var user = new ApplicationUser
             {
                 Email = registerDto.Email,
@@ -58,7 +54,7 @@ namespace EmployeeApp.Business.Services
 
             var user = await _userManager.FindByNameAsync(loginDto.Username);
 
-            if (user != null && (await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false)).Succeeded)
+            if (user != null && (await _userManager.CheckPasswordAsync(user, loginDto.Password)))
             {
                 var claims = new Claim[]
                 {
