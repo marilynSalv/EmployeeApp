@@ -1,15 +1,13 @@
 ﻿using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Repositories;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 
-namespace EmployeeApp.Api.Services;
+namespace EmployeeApp.Business.Services;
 
 public class RefreshTokenGenerator : IRefreshTokenGenerator
 {

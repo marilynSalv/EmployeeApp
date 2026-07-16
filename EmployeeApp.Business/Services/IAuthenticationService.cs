@@ -1,8 +1,7 @@
 ﻿using EmployeeApp.Dal.Dtos;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Business.Services
 {
     public interface IAuthenticationService
     {

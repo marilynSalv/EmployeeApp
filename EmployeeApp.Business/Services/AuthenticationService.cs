@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Business.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
