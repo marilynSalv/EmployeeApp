@@ -1,11 +1,7 @@
-﻿using EmployeeApp.Dal.Dtos;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using EmployeeApp.Domain.DomainEntities;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Application.Services;
+public interface ICompanyService
 {
-    public interface ICompanyService
-    {
-        Task<List<CompanySearchDto>> Search(string searchValue);
-    }
+    Task<List<Company>> Search(string searchValue);
 }

@@ -1,6 +1,6 @@
 using EmployeeApp.Api;
+using EmployeeApp.Application.Dtos;
 using EmployeeApp.Dal.Contexts;
-using EmployeeApp.Dal.Dtos;
 using EmployeeApp.Dal.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

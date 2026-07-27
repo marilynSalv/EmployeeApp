@@ -1,7 +1,8 @@
 ﻿using EmployeeApp.Dal.Contexts;
 using System.Threading.Tasks;
+using EmployeeApp.Domain.Interfaces.Repositories;
 
-namespace EmployeeApp.Dal.Repositories;
+namespace EmployeeApp.Infrastructure.Repositories;
 
 public class SprocRepository : ISprocRepository
 {

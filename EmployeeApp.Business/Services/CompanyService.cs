@@ -1,21 +1,18 @@
-﻿using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using EmployeeApp.Domain.DomainEntities;
+using EmployeeApp.Domain.Interfaces.Repositories;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Application.Services;
+
+public class CompanyService : ICompanyService
 {
-    public class CompanyService : ICompanyService
+    private readonly ICompanyRepository _companyRepository;
+    public CompanyService(ICompanyRepository companyRepository)
     {
-        private readonly ICompanyRepository _companyRepository;
-        public CompanyService(ICompanyRepository companyRepository)
-        {
-            _companyRepository = companyRepository;
-        }
+        _companyRepository = companyRepository;
+    }
 
-        public Task<List<CompanySearchDto>> Search(string searchValue)
-        {
-            return _companyRepository.Search(searchValue);
-        }
+    public Task<List<Company>> Search(string searchValue)
+    {
+        return _companyRepository.Search(searchValue);
     }
 }

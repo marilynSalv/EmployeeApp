@@ -1,7 +1,6 @@
-﻿namespace EmployeeApp.Api.Services
+﻿namespace EmployeeApp.Application.Services;
+
+public interface ISingleton
 {
-    public interface ISingleton
-    {
-        public string GetOperationId();
-    }
+    public string GetOperationId();
 }

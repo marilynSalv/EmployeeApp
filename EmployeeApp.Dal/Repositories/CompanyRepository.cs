@@ -1,33 +1,34 @@
 ﻿using EmployeeApp.Dal.Contexts;
-using EmployeeApp.Dal.Dtos;
+using EmployeeApp.Domain.DomainEntities;
+using EmployeeApp.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeApp.Dal.Repositories
+
+namespace EmployeeApp.Infrastructure.Repositories;
+
+public class CompanyRepository : ICompanyRepository
 {
-    public class CompanyRepository : ICompanyRepository
+    private readonly PlayGroundContext _context;
+    public CompanyRepository(PlayGroundContext context)
     {
-        private readonly PlayGroundContext _context;
-        public CompanyRepository(PlayGroundContext context)
-        {
-            _context = context;
-        }
+        _context = context;
+    }
 
-        public async Task<List<CompanySearchDto>> Search(string searchValue)
-        {
-            var results = await _context.Companies
-                .Where(x => x.Name.Contains(searchValue) || x.Id.ToString() == searchValue)
-                .Select(x => new CompanySearchDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Industry = x.Industry,
-                })
-                .ToListAsync();
+    public async Task<List<Company>> Search(string searchValue)
+    {
+        var results = await _context.Companies
+            .Where(x => x.Name.Contains(searchValue) || x.Id.ToString() == searchValue)
+            .Select(x => new Company
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Industry = x.Industry,
+            })
+            .ToListAsync();
 
-            return results;
-        }
+        return results;
     }
 }

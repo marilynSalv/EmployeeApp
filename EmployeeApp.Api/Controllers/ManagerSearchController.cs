@@ -1,5 +1,5 @@
-﻿using EmployeeApp.Api.Services;
-using EmployeeApp.Dal.Dtos;
+﻿using EmployeeApp.Application.Services;
+using EmployeeApp.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<ManagerSearchDto>>> PostManagerSearch([FromBody] string searchValue)
+        public async Task<ActionResult<List<ManagerSearch>>> PostManagerSearch([FromBody] string searchValue)
         {
             var results = await _managerSearchService.ManagerSearch(searchValue);
             return results;

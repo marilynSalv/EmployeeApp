@@ -1,11 +1,11 @@
-﻿using EmployeeApp.Dal.Entities;
-using EmployeeApp.Dal.Entities.DbQueries;
+﻿using EmployeeApp.Dal.Entities.DbQueries;
+using EmployeeApp.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace EmployeeApp.Dal.Contexts
+namespace EmployeeApp.Infrastructure.Contexts
 {
     public class PlayGroundContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
@@ -31,8 +31,8 @@ namespace EmployeeApp.Dal.Contexts
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<File> Files { get; set; }
+        public DbSet<CompanyEntity> Companies { get; set; }
+        public DbSet<FileEntity> Files { get; set; }
 
         // Dtos for Db Queries
         public DbSet<TestSprocDto> TestSprocDtos { get; set; }

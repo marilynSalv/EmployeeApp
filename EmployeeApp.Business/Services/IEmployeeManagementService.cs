@@ -1,9 +1,9 @@
-﻿using EmployeeApp.Dal.Dtos;
+﻿using EmployeeApp.Domain.DomainEntities;
 
-namespace EmployeeApp.Business.Services;
+namespace EmployeeApp.Application.Services;
 
 public interface IEmployeeManagementService
 {
-    Task<List<EmployeeManagementDto>> GetEmployees();
-    Task<Guid> UpdateEmployee(UpdateEmployeeDto dto);
+    Task<List<Employee>> GetEmployees();
+    Task<Guid> UpdateEmployee(Employee dto);
 }

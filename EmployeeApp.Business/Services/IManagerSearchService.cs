@@ -1,11 +1,8 @@
-﻿using EmployeeApp.Dal.Dtos;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using EmployeeApp.Application.Dtos;
+using EmployeeApp.Domain.ValueObjects;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Application.Services;
+public interface IManagerSearchService
 {
-    public interface IManagerSearchService
-    {
-        Task<List<ManagerSearchDto>> ManagerSearch(string searchValue);
-    }
+    Task<List<ManagerSearch>> ManagerSearch(string searchValue);
 }

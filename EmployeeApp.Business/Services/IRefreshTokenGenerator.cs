@@ -1,11 +1,10 @@
-﻿using EmployeeApp.Dal.Dtos;
+﻿using EmployeeApp.Application.Dtos;
 using System.Security.Claims;
 
-namespace EmployeeApp.Business.Services
+namespace EmployeeApp.Application.Services;
+
+public interface IRefreshTokenGenerator
 {
-    public interface IRefreshTokenGenerator
-    {
-        Task<RefreshTokenDto> CreateTokenAndRefresh(string username, Claim[] claims);
-        Task AddRefreshToken(string username, string refreshToken);
-    }
+    Task<RefreshTokenDto> CreateTokenAndRefresh(string username, Claim[] claims);
+    Task AddRefreshToken(string username, string refreshToken);
 }

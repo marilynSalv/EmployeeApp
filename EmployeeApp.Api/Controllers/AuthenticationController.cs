@@ -1,7 +1,6 @@
-﻿using EmployeeApp.Business.Services;
-using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using EmployeeApp.Application.Dtos;
+using EmployeeApp.Application.Interfaces.Services;
+using EmployeeApp.Application.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@ namespace EmployeeApp.Api.Controllers
 
         //TEST PIPELINE SYNC
         [HttpPost("register")]
-        public async Task<IdentityResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<Result> Register([FromBody] RegisterDto registerDto)
         {
             var result = await _authenticationService.CreateUser(registerDto);
 

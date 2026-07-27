@@ -1,5 +1,5 @@
 ﻿using EmployeeApp.Api.Services;
-using EmployeeApp.Business.Services;
+using EmployeeApp.Application.Services;
 using EmployeeApp.Dal.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +16,7 @@ namespace EmployeeApp.Api
             services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
             services.AddScoped<ISprocRepository, SprocRepository>();
             services.AddScoped<IScoped, ScopeService>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthenticationService, IdentityAuthenticationService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IEmployeeManagementService, EmployeeManagementService>();
             services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();

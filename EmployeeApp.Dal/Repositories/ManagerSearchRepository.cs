@@ -1,11 +1,11 @@
 ﻿using EmployeeApp.Dal.Contexts;
-using EmployeeApp.Dal.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace EmployeeApp.Dal.Repositories;
+using EmployeeApp.Domain.Interfaces.Repositories;
+using EmployeeApp.Domain.ValueObjects;
+namespace EmployeeApp.Infrastructure.Repositories;
 
 public class ManagerSearchRepository : IManagerSearchRepository
 {
@@ -15,12 +15,12 @@ public class ManagerSearchRepository : IManagerSearchRepository
         _context = context;
     }
 
-    public async Task<List<ManagerSearchDto>> ManagerSearch(string searchValue)
+    public async Task<List<ManagerSearch>>  ManagerSearch(string searchValue)
     {
         var results = await _context.ApplicationUsers
             .Where(x => x.IsManager)
             .Where(x => x.FirstName.Contains(searchValue) || x.LastName.Contains(searchValue) || x.UserName.Contains(searchValue))
-            .Select(x => new ManagerSearchDto
+            .Select(x => new ManagerSearch
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
