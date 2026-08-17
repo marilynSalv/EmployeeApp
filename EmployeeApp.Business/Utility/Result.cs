@@ -2,43 +2,41 @@
 
 public class Result
 {
-    public bool Success { get; }
-
-    public bool IsFailure => !Success;
+    public bool IsSuccess { get; }
 
     public IEnumerable<string> Errors { get; }
 
     //public HttpStatusCode StatusCode { get; }
 
-    protected Result(bool success, string error)
+    protected Result(bool isSuccess, string error)
     {
-        if(success && error != string.Empty)
+        if (isSuccess && error != string.Empty)
         {
             throw new InvalidOperationException("A successful result cannot contain an error.");
         }
 
-        if (!success && error == string.Empty) 
+        if (!isSuccess && error == string.Empty) 
         {
             throw new InvalidOperationException("A failed result must contain an error message.");
         }
 
-        Success = success;
+        IsSuccess = isSuccess;
         Errors = [error];
     }
 
-    protected Result(bool success, IEnumerable<string> errors)
+    protected Result(bool isSuccess, IEnumerable<string> errors)
     {
-        if (success && errors.Any(e => !string.IsNullOrWhiteSpace(e)))
+        if (isSuccess && errors.Any(e => !string.IsNullOrWhiteSpace(e)))
         {
             throw new InvalidOperationException("A successful result cannot contain errors.");
         }
 
-        if (!success && !errors.Any(e => !string.IsNullOrWhiteSpace(e)))
+        if (!isSuccess && !errors.Any(e => !string.IsNullOrWhiteSpace(e)))
         {
             throw new InvalidOperationException("A failed result must contain at least one error message.");
         }
 
-        Success = success;
+        IsSuccess = isSuccess;
         Errors = errors;
     }
 
