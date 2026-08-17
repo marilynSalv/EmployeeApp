@@ -24,7 +24,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeApp.Business\EmployeeApp.Application.csproj" />
-    <ProjectReference Include="..\EmployeeApp.Domain\EmployeeApp.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

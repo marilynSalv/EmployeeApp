@@ -1,4 +1,4 @@
-﻿using EmployeeApp.Dal.Contexts;
+﻿using EmployeeApp.Infrastructure.Contexts;
 using EmployeeApp.Domain.DomainEntities;
 using EmployeeApp.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;

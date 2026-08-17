@@ -1,5 +1,10 @@
-﻿using EmployeeApp.Infrastructure.Contexts;
+﻿using EmployeeApp.Application.Interfaces.Services;
+using EmployeeApp.Application.Services;
+using EmployeeApp.Domain.Interfaces.Repositories;
+using EmployeeApp.Infrastructure.Contexts;
 using EmployeeApp.Infrastructure.Entities;
+using EmployeeApp.Infrastructure.Identity;
+using EmployeeApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +17,7 @@ namespace EmployeeApp.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddData(this IServiceCollection services, string connectionString, string jwtSecret)
+    public static IServiceCollection SetupIdentityContext(this IServiceCollection services, string connectionString, string jwtSecret)
     {
         services.AddDbContextPool<PlayGroundContext>(options =>
         { 
@@ -56,6 +61,18 @@ public static class ServiceCollectionExtensions
                     Encoding.UTF8.GetBytes(jwtSecret))
             };
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
+    {
+        services.AddScoped<IEmployeeManagementRepository, EmployeeManagementRepository>();
+        services.AddScoped<ICompanyRepository, CompanyRepository>();
+        services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+        services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+        services.AddScoped<IAuthenticationService, IdentityAuthenticationService>();
 
         return services;
     }

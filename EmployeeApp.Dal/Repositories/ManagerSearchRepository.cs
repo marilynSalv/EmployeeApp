@@ -1,10 +1,10 @@
-﻿using EmployeeApp.Dal.Contexts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeApp.Domain.Interfaces.Repositories;
 using EmployeeApp.Domain.ValueObjects;
+using EmployeeApp.Infrastructure.Contexts;
 namespace EmployeeApp.Infrastructure.Repositories;
 
 public class ManagerSearchRepository : IManagerSearchRepository

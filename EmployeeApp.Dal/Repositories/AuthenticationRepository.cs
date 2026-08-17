@@ -1,5 +1,5 @@
-﻿using EmployeeApp.Dal.Contexts;
-using EmployeeApp.Domain.Interfaces.Repositories;
+﻿using EmployeeApp.Domain.Interfaces.Repositories;
+using EmployeeApp.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

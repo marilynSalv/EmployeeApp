@@ -3,21 +3,21 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeApp.Infrastructure.Entities;
+
+[Table("company")]
+
+public class CompanyEntity
 {
-    [Table("company")]
+    [Key]
+    public Guid Id { get; set; }
 
-    public class CompanyEntity
-    {
-        [Key]
-        public Guid Id { get; set; }
+    [StringLength(50)]
+    public string Name { get; set; }
 
-        [StringLength(50)]
-        public string Name { get; set; }
+    [StringLength(400)]
+    public string Industry { get; set; }
 
-        [StringLength(400)]
-        public string Industry { get; set; }
-
-        [StringLength(50)]
-        public string Symbol { get; set; }
-    }
+    [StringLength(50)]
+    public string Symbol { get; set; }
 }
+

@@ -2,8 +2,8 @@
 using EmployeeApp.Application.Interfaces.Services;
 using EmployeeApp.Application.Services;
 using EmployeeApp.Application.Utility;
-using EmployeeApp.Dal.Entities;
 using EmployeeApp.Domain.Interfaces.Repositories;
+using EmployeeApp.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
