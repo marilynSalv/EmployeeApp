@@ -1,7 +1,6 @@
-﻿namespace EmployeeApp.Api.Services
+﻿namespace EmployeeApp.Application.Services;
+
+public interface ITransient
 {
-    public interface ITransient
-    {
-        public string GetOperationId();
-    }
+    public string GetOperationId();
 }

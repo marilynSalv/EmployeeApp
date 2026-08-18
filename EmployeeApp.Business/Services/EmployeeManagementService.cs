@@ -1,7 +1,7 @@
-﻿using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Repositories;
+﻿using EmployeeApp.Domain.DomainEntities;
+using EmployeeApp.Domain.Interfaces.Repositories;
 
-namespace EmployeeApp.Business.Services;
+namespace EmployeeApp.Application.Services;
 
 public class EmployeeManagementService : IEmployeeManagementService
 {
@@ -12,12 +12,12 @@ public class EmployeeManagementService : IEmployeeManagementService
         _employeeManagementRepository = employeeManagementRepository;
     }
 
-    public async Task<List<EmployeeManagementDto>> GetEmployees()
+    public async Task<List<Employee>> GetEmployees()
     {
         return await _employeeManagementRepository.Get();
     }
 
-    public async Task<Guid> UpdateEmployee(UpdateEmployeeDto dto)
+    public async Task<Guid> UpdateEmployee(Employee dto)
     {
         return await _employeeManagementRepository.Update(dto);
     }

@@ -15,15 +15,10 @@ export interface AuthResponseDto {
     refreshToken: string;
 }
 
-export interface IdentityResult {
-    succeeded: boolean;
-    errors: IdentityResultError[];
+export interface Result {
+    isSuccess: boolean;
+    errors: string[];
 }
-
-export interface IdentityResultError {
-    description: string;
-}
-
 export interface RefreshTokenDto {
     token: string;
     refreshToken: string;

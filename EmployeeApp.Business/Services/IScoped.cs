@@ -1,7 +1,7 @@
-﻿namespace EmployeeApp.Api.Services
+﻿namespace EmployeeApp.Application.Services;
+
+public interface IScoped
 {
-    public interface IScoped
-    {
-        public string GetOperationId();
-    }
+    public string GetOperationId();
 }
+

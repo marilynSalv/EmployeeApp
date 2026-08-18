@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using EmployeeApp.Dal.Entities;
+﻿using EmployeeApp.Application.Services;
+using EmployeeApp.Domain.DomainEntities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Business.Services;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
 {
@@ -16,24 +14,21 @@ namespace EmployeeApp.Api.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeManagementService _employeeManagementService;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EmployeeController(IEmployeeManagementService employeeManagementService,
-            UserManager<ApplicationUser> userManager)
+        public EmployeeController(IEmployeeManagementService employeeManagementService)
         {
             _employeeManagementService = employeeManagementService;  
-            _userManager = userManager;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<EmployeeManagementDto>>> Get()
+        public async Task<ActionResult<List<Employee>>> Get()
         {
             var result = await _employeeManagementService.GetEmployees();
             return result;
         }
 
         [HttpPut]
-        public async Task<Guid> Update([FromBody] UpdateEmployeeDto dto)
+        public async Task<Guid> Update([FromBody] Employee dto)
         {
             var result = await _employeeManagementService.UpdateEmployee(dto);
             return result;

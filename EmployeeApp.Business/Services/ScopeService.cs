@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmployeeApp.Api.Services
+namespace EmployeeApp.Application.Services
 {
     public class ScopeService : IScoped, ITransient, ISingleton
     {

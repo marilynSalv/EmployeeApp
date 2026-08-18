@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of } from 'rxjs';
-import { IdentityResult, IdentityResultError, RegisterDto } from '../login/user-auth-dto.model';
+import { Result, RegisterDto } from '../login/user-auth-dto.model';
 import { RegisterService } from './register.service';
 import { EmployeeManagementDto } from '../employees/employee.model';
 import { CompanySearchDto, ManagerSearchDto } from './employee.model';
@@ -26,7 +26,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
 export class RegisterComponent {
   registerForm: FormGroup = this.createForm();
   showError = false;
-  errorMessages: IdentityResultError[] = [];
+  errorMessages: string[] = [];
   searchCompaniesSubscription?: Subscription;
 
   @Input() isMgmtEdit = false;
@@ -56,8 +56,8 @@ export class RegisterComponent {
 
     this.registerService.register(registerDto)
     .subscribe({
-      next: (response: IdentityResult) => {
-        if(response.succeeded) {
+      next: (response: Result) => {
+        if(response.isSuccess) {
           this.router.navigate(['login'])
           this.toastrService.success('Sucessfully created account');
         } else {

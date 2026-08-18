@@ -1,9 +1,7 @@
-﻿using EmployeeApp.Api.Services;
-using EmployeeApp.Dal.Dtos;
+﻿using EmployeeApp.Application.Services;
+using EmployeeApp.Domain.DomainEntities;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeApp.Api.Controllers
@@ -19,7 +17,7 @@ namespace EmployeeApp.Api.Controllers
         }
 
         [HttpPost("Search")]
-        public async Task<ActionResult<List<CompanySearchDto>>> SearchCompanies([FromBody] string searchValue)
+        public async Task<ActionResult<List<Company>>> SearchCompanies([FromBody] string searchValue)
         {
             var results = await _companyService.Search(searchValue);
             return results;

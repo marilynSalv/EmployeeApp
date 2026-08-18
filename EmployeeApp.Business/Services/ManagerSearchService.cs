@@ -1,9 +1,8 @@
-﻿using EmployeeApp.Dal.Dtos;
-using EmployeeApp.Dal.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using EmployeeApp.Application.Dtos;
+using EmployeeApp.Domain.Interfaces.Repositories;
+using EmployeeApp.Domain.ValueObjects;
 
-namespace EmployeeApp.Api.Services;
+namespace EmployeeApp.Application.Services;
 
 public class ManagerSearchService : IManagerSearchService
 {
@@ -13,7 +12,7 @@ public class ManagerSearchService : IManagerSearchService
         _managerSearchRepository = managerSearchRepository;
     }
 
-    public Task<List<ManagerSearchDto>> ManagerSearch(string searchValue)
+    public Task<List<ManagerSearch>> ManagerSearch(string searchValue)
     {
         return _managerSearchRepository.ManagerSearch(searchValue);
     }

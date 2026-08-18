@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EmployeeApp.Dal.Entities;
+namespace EmployeeApp.Infrastructure.Entities;
 
 public class ApplicationUser : IdentityUser<Guid>
 {
@@ -24,13 +24,13 @@ public class ApplicationUser : IdentityUser<Guid>
     public Guid? CompanyId { get; set; }
     public bool IsManager { get; set; }
     public Guid? ManagerId { get; set; }
-    public File? Photo { get; set; }
+    public FileEntity? Photo { get; set; }
 
     [ForeignKey("ManagerId")]
     public virtual ApplicationUser Manager { get; set; }
 
     [ForeignKey("CompanyId")]
-    public virtual Company Company { get; set; }
+    public virtual CompanyEntity Company { get; set; }
 }
 
 internal class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
@@ -39,7 +39,7 @@ internal class ApplicationUserConfiguration : IEntityTypeConfiguration<Applicati
     {
         builder.HasOne(user => user.Photo)
             .WithOne()
-            .HasForeignKey<File>(file => file.UserId)
+            .HasForeignKey<FileEntity>(file => file.UserId)
             .IsRequired(false);
     }
 }
