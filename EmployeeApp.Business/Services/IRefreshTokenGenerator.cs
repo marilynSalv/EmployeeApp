@@ -5,6 +5,6 @@ namespace EmployeeApp.Application.Services;
 
 public interface IRefreshTokenGenerator
 {
-    Task<RefreshTokenDto> CreateTokenAndRefresh(string username, Claim[] claims);
-    Task AddRefreshToken(string username, string refreshToken);
+    Task<RefreshTokenDto> CreateRefreshToken(Guid userId, Claim[] claims);
+    Task AddRefreshToken(Guid userId, string refreshToken);
 }

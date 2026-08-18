@@ -24,7 +24,7 @@ public class RefreshTokenGenerator : IRefreshTokenGenerator
         _applicationSettings = applicationSettings.Value;
     }
 
-    public async Task<RefreshTokenDto> CreateTokenAndRefresh(string username, Claim[] claims)
+    public async Task<RefreshTokenDto> CreateRefreshToken(Guid userId, Claim[] claims)
     {
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -39,7 +39,7 @@ public class RefreshTokenGenerator : IRefreshTokenGenerator
 
         // Random # generator
         var refreshToken = GenerateToken();
-        await AddRefreshToken(username, refreshToken);
+        await AddRefreshToken(userId, refreshToken);
 
         var result = new RefreshTokenDto
         {
@@ -50,10 +50,10 @@ public class RefreshTokenGenerator : IRefreshTokenGenerator
         return result;
     }
 
-    public async Task AddRefreshToken(string username, string refreshToken)
+    public async Task AddRefreshToken(Guid userId, string refreshToken)
     {
         var expiration = DateTime.UtcNow.AddMinutes(5);
-        await _authenticationRepository.AddRefreshToken(username, refreshToken, expiration);
+        await _authenticationRepository.AddRefreshToken(userId, refreshToken, expiration);
     }
 
     private string GenerateToken()

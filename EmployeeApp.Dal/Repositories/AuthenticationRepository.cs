@@ -16,10 +16,10 @@ public class AuthenticationRepository : IAuthenticationRepository
         _context = context;
     }
 
-    public async Task AddRefreshToken(string username, string refreshToken, DateTime expiration)
+    public async Task AddRefreshToken(Guid userId, string refreshToken, DateTime expiration)
     {
         var entity = await _context.ApplicationUsers
-            .Where(x => x.UserName == username)
+            .Where(x => x.Id == userId)
             .SingleAsync();
 
         entity.RefreshToken = refreshToken;
@@ -30,10 +30,10 @@ public class AuthenticationRepository : IAuthenticationRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<bool> IsRefreshTokenValid(string username, string refreshToken)
+    public async Task<bool> IsRefreshTokenValid(Guid userId, string refreshToken)
     {
         var exists = await _context.ApplicationUsers
-            .Where(x => x.UserName == username)
+            .Where(x => x.Id == userId)
             .Where(x => DateTime.UtcNow <= x.RefreshTokenExpiration)
             .Where(x => x.RefreshToken == refreshToken)
             .Where(x => x.RefreshTokenValid == true)
@@ -42,10 +42,10 @@ public class AuthenticationRepository : IAuthenticationRepository
         return exists;
     }
 
-    public async Task InvalidateRefreshToken(string username)
+    public async Task InvalidateRefreshToken(Guid userId)
     {
         var entity = await _context.ApplicationUsers
-            .Where(x => x.UserName == username)
+            .Where(x => x.Id == userId)
             .SingleAsync();
 
         entity.RefreshTokenValid = false;

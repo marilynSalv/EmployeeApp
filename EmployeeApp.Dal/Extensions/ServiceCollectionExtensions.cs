@@ -72,7 +72,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
         services.AddScoped<IManagerSearchRepository, ManagerSearchRepository>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
-        services.AddScoped<IAuthenticationService, IdentityAuthenticationService>();
+        services.AddScoped<IIdentityAuthenticationService, IdentityAuthenticationService>();
 
         return services;
     }

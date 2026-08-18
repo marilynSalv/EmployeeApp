@@ -2,7 +2,7 @@
 
 public interface IAuthenticationRepository
 {
-    Task AddRefreshToken(string username, string refreshToken, DateTime expiration);
-    Task<bool> IsRefreshTokenValid(string username, string refreshToken);
-    Task InvalidateRefreshToken(string username);
+    Task AddRefreshToken(Guid userId, string refreshToken, DateTime expiration);
+    Task<bool> IsRefreshTokenValid(Guid userId, string refreshToken);
+    Task InvalidateRefreshToken(Guid userId);
 }

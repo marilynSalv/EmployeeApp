@@ -10,10 +10,10 @@ namespace EmployeeApp.Api.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IIdentityAuthenticationService _authenticationService;
 
         public AuthenticationController(
-            IAuthenticationService authenticationService)
+            IIdentityAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
@@ -52,11 +52,10 @@ namespace EmployeeApp.Api.Controllers
             return Unauthorized();
         }
 
-        [HttpPut("logout")]
-        public async Task Logout(string username)
-        {
-            var x = User.Identity.Name;
-            await _authenticationService.InvalidateRefreshToken(username);
-        }
+        //[HttpPut("logout/{userId}")]
+        //public async Task Logout(string userId, r)
+        //{
+        //    await _authenticationService.InvalidateRefreshToken(userId);
+        //}
     }
 }

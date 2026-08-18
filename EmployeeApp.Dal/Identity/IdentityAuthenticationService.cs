@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Infrastructure.Identity;
 
-public class IdentityAuthenticationService : IAuthenticationService
+public class IdentityAuthenticationService : IIdentityAuthenticationService
 {
     private readonly IAuthenticationRepository _authenticationRepository;
     private readonly UserManager<ApplicationUser> _userManager;
@@ -64,10 +64,10 @@ public class IdentityAuthenticationService : IAuthenticationService
         {
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Name, user.UserName.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
 
-            var refreshTokenDto = await _refreshTokenGenerator.CreateTokenAndRefresh(loginDto.Username, claims.ToArray());
+            var refreshTokenDto = await _refreshTokenGenerator.CreateRefreshToken(user.Id, claims.ToArray());
 
             result.Token = refreshTokenDto.Token;
             result.IsAuthSuccessful = true;
@@ -100,39 +100,37 @@ public class IdentityAuthenticationService : IAuthenticationService
         SecurityToken validatedToken = null;
         var principal = tokenHandler.ValidateToken(dto.Token, tokenValidationParams, out validatedToken);
         var jwtToken = validatedToken as JwtSecurityToken;
-        var username = principal.Identity.Name;
+        var claimValue = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (Guid.TryParse(claimValue, out Guid userId) is false) {
+            await InvalidateRefreshToken(userId);
+            throw new SecurityTokenException("user id cannot be parsed");
+        }
 
         if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256))
         {
-            await InvalidateRefreshToken(username);
+            await InvalidateRefreshToken(userId);
             throw new SecurityTokenException("Invalid token passed");
         }
 
-        var isRefreshTokenValid = await IsRefreshTokenValid(username, dto.RefreshToken);
+        var isRefreshTokenValid = await IsRefreshTokenValid(userId, dto.RefreshToken);
         if (!isRefreshTokenValid)
         {
-            await InvalidateRefreshToken(username);
+            await InvalidateRefreshToken(userId);
             throw new SecurityTokenException("Invalid token passed");
         }
 
-        var refreshTokenDto = await _refreshTokenGenerator.CreateTokenAndRefresh(username, principal.Claims.ToArray());
+        var refreshTokenDto = await _refreshTokenGenerator.CreateRefreshToken(userId, principal.Claims.ToArray());
 
         return refreshTokenDto;
     }
 
-    public async Task AddRefreshToken(string username, string refreshToken)
+    public Task<bool> IsRefreshTokenValid(Guid userId, string refreshToken)
     {
-        var expiration = DateTime.UtcNow.AddMinutes(5);
-        await _authenticationRepository.AddRefreshToken(username, refreshToken, expiration);
+        return _authenticationRepository.IsRefreshTokenValid(userId, refreshToken);
     }
 
-    public Task<bool> IsRefreshTokenValid(string username, string refreshToken)
+    public async Task InvalidateRefreshToken(Guid userId)
     {
-        return _authenticationRepository.IsRefreshTokenValid(username, refreshToken);
-    }
-
-    public async Task InvalidateRefreshToken(string username)
-    {
-        await _authenticationRepository.InvalidateRefreshToken(username);
+        await _authenticationRepository.InvalidateRefreshToken(userId);
     }
 }
