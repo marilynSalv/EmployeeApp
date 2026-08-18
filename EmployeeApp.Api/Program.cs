@@ -1,18 +1,18 @@
-using EmployeeApp.Api;
+using EmployeeApp.Application.Dtos;
+using EmployeeApp.Application.Extensions;
+using EmployeeApp.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
-using EmployeeApp.Infrastructure.Extensions;
-using EmployeeApp.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var connectionString = config.GetConnectionString("PlayGroundContext");
 var jwtSecret = config["ApplicationSettings:JwtSecret"];
-
+builder.Services.Configure<ApplicationSettings>(config.GetSection("ApplicationSettings"));
 builder.Services.SetupIdentityContext(connectionString, jwtSecret);
 
 builder.Services.AddControllers();
